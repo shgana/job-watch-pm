@@ -1,0 +1,22 @@
+{
+  "jobs": [
+    {
+      "id": 101,
+      "title": "Senior Project Manager",
+      "absolute_url": "https://boards.greenhouse.io/asana/jobs/101",
+      "updated_at": "2026-03-11T12:00:00Z",
+      "location": {"name": "Seattle, WA"},
+      "departments": [{"name": "Operations"}],
+      "content": "Lead project delivery."
+    },
+    {
+      "id": 102,
+      "title": "Product Manager",
+      "absolute_url": "https://boards.greenhouse.io/asana/jobs/102",
+      "updated_at": "2026-03-01T12:00:00Z",
+      "location": {"name": "San Francisco, CA"},
+      "departments": [{"name": "Product"}],
+      "content": "Not a match."
+    }
+  ]
+}

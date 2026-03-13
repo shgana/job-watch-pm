@@ -1,0 +1,17 @@
+{
+  "jobs": [
+    {
+      "title": "Technical Project Manager",
+      "jobUrl": "https://jobs.ashbyhq.com/openai/abcd",
+      "applyUrl": "https://jobs.ashbyhq.com/openai/abcd/apply",
+      "publishedAt": "2026-03-12T09:30:00Z",
+      "location": "McLean, VA",
+      "secondaryLocations": [{"location": "New York, NY"}],
+      "team": "Operations",
+      "department": "Business Systems",
+      "employmentType": "Full-time",
+      "isRemote": false,
+      "descriptionPlain": "Run cross-functional delivery."
+    }
+  ]
+}

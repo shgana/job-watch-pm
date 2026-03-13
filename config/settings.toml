@@ -1,0 +1,92 @@
+[metros]
+seattle = [
+  "seattle",
+  "bellevue",
+  "redmond",
+  "kirkland",
+]
+sf_bay_area = [
+  "san francisco",
+  "sf bay area",
+  "bay area",
+  "oakland",
+  "berkeley",
+  "san mateo",
+  "palo alto",
+  "mountain view",
+  "menlo park",
+  "redwood city",
+  "san jose",
+  "santa clara",
+  "sunnyvale",
+]
+nyc = [
+  "new york",
+  "new york city",
+  "nyc",
+  "brooklyn",
+  "manhattan",
+  "queens",
+  "jersey city",
+  "hoboken",
+]
+boston = [
+  "boston",
+  "cambridge",
+  "somerville",
+  "waltham",
+]
+northern_virginia = [
+  "mclean",
+  "mc lean",
+  "tysons",
+  "reston",
+  "herndon",
+  "arlington",
+  "alexandria",
+  "fairfax",
+  "northern virginia",
+]
+
+[role_rules]
+include = [
+  "business analyst",
+  "project manager",
+  "technical project manager",
+  "senior project manager",
+  "senior business analyst",
+  "lead project manager",
+  "lead business analyst",
+  "principal project manager",
+  "principal business analyst",
+]
+exclude = [
+  "program manager",
+  "product manager",
+  "product analyst",
+  "project coordinator",
+  "associate project manager",
+  "delivery manager",
+  "implementation manager",
+  "engagement manager",
+  "operations manager",
+  "business operations",
+  "systems analyst",
+  "business systems analyst",
+  "data analyst",
+  "financial analyst",
+  "marketing analyst",
+  "security analyst",
+  "scrum master",
+]
+
+[scan]
+freshness_days = 7
+
+[request]
+concurrency = 8
+timeout_seconds = 20
+
+[sheet]
+tab_name = "Jobs"
+sheet_id_env_var = "GOOGLE_SHEET_ID"
