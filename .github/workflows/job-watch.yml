@@ -54,7 +54,11 @@ jobs:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
         run: |
           mkdir -p artifacts
-          job-watch scan
+          if job-watch scan --help | grep -q -- '--format'; then
+            job-watch scan --format json --output artifacts/scan-summary.json
+          else
+            job-watch scan
+          fi
 
       - name: Capture source health snapshot
         if: always()
@@ -65,90 +69,10 @@ jobs:
       - name: Build status dashboard
         if: always()
         run: |
-          if [ -f artifacts/source-health.json ]; then
-            python - <<'PY'
-            import json
-            from datetime import datetime, UTC
-            from html import escape
-            from pathlib import Path
-
-            payload = json.loads(Path("artifacts/source-health.json").read_text(encoding="utf-8"))
-            rows = []
-            ok_count = 0
-            err_count = 0
-            for item in payload:
-                ok = bool(item.get("ok", False))
-                if ok:
-                    ok_count += 1
-                else:
-                    err_count += 1
-                rows.append(
-                    {
-                        "company": str(item.get("company_slug", "")),
-                        "source": str(item.get("ats_kind", "")),
-                        "jobs": str(item.get("jobs_found", 0)),
-                        "ok": ok,
-                        "error": str(item.get("error") or ""),
-                    }
-                )
-            rows.sort(key=lambda row: row["company"])
-            rendered_rows = []
-            for row in rows:
-                status_class = "status-ok" if row["ok"] else "status-error"
-                status_label = "green" if row["ok"] else "red"
-                rendered_rows.append(
-                    "<tr>"
-                    f"<td>{escape(row['company'])}</td>"
-                    f"<td>{escape(row['source'])}</td>"
-                    f"<td>{escape(row['jobs'])}</td>"
-                    f"<td><span class='status {status_class}'>{status_label}</span></td>"
-                    f"<td>{escape(row['error'])}</td>"
-                    "</tr>"
-                )
-
-            generated = datetime.now(tz=UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
-            html = f"""<!doctype html>
-            <html lang="en">
-            <head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1">
-              <title>Job Watch Source Status</title>
-              <style>
-                body {{ margin: 0; padding: 24px; background: #f8fafc; color: #0f172a; font-family: -apple-system, Segoe UI, Arial, sans-serif; }}
-                .card {{ max-width: 1200px; margin: 0 auto; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; }}
-                h1 {{ margin: 0 0 6px; font-size: 24px; }}
-                .meta {{ margin: 0 0 16px; color: #475569; font-size: 14px; }}
-                .summary {{ display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; font-size: 14px; }}
-                .pill {{ border-radius: 9999px; padding: 6px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; }}
-                table {{ width: 100%; border-collapse: collapse; font-size: 14px; }}
-                th, td {{ text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }}
-                th {{ color: #475569; font-weight: 600; background: #f8fafc; }}
-                .status {{ display: inline-block; border-radius: 9999px; padding: 3px 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; }}
-                .status-ok {{ background: #dcfce7; color: #166534; }}
-                .status-error {{ background: #fee2e2; color: #991b1b; }}
-              </style>
-            </head>
-            <body>
-              <div class="card">
-                <h1>Job Watch Source Status</h1>
-                <p class="meta">Generated: {generated}</p>
-                <div class="summary">
-                  <span class="pill">Total Companies: {len(rows)}</span>
-                  <span class="pill">Green: {ok_count}</span>
-                  <span class="pill">Red: {err_count}</span>
-                </div>
-                <table>
-                  <thead><tr><th>Company</th><th>Source</th><th>Jobs</th><th>Status</th><th>Error</th></tr></thead>
-                  <tbody>{''.join(rendered_rows)}</tbody>
-                </table>
-              </div>
-            </body>
-            </html>
-            """
-            Path("artifacts/status-dashboard.html").write_text(html, encoding="utf-8")
-            print("Wrote status dashboard to artifacts/status-dashboard.html")
-            PY
-          fi
+          python scripts/build_status_dashboard.py \
+            --scan-report artifacts/scan-summary.json \
+            --sources-report artifacts/source-health.json \
+            --output artifacts/status-dashboard.html
 
       - name: Prepare Pages site
         if: always()
@@ -207,6 +131,7 @@ jobs:
         with:
           name: scan-summary
           path: |
+            artifacts/scan-summary.json
             artifacts/source-health.json
             artifacts/status-dashboard.html
             artifacts/site/index.html
