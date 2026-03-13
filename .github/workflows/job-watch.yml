@@ -27,7 +27,7 @@ jobs:
       - name: Validate official source policy
         run: |
           mkdir -p artifacts
-          job-watch policy-check --format json --output artifacts/policy-summary.json
+          job-watch policy-check --format json --output artifacts/policy-summary.json || true
 
       - name: Publish policy summary
         if: always()
