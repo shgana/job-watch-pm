@@ -56,9 +56,8 @@ jobs:
                   ]
               )
               for item in violations:
-                  lines.append(
-                      f"| {item.get('company_slug', '')} | {(item.get('error', '')).replace('|', '\\\\|')} |"
-                  )
+                  escaped_error = (item.get("error") or "").replace("|", "\\|")
+                  lines.append(f"| {item.get('company_slug', '')} | {escaped_error} |")
           summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
           with summary_file.open("a", encoding="utf-8") as handle:
               handle.write("\n".join(lines) + "\n")
@@ -100,13 +99,13 @@ jobs:
         if: always()
         run: |
           if [ -f artifacts/scan-summary.json ]; then
-            job-watch status-dashboard --scan-report artifacts/scan-summary.json --output artifacts/status-dashboard.html
+            python -m job_watch.cli status-dashboard --scan-report artifacts/scan-summary.json --output artifacts/status-dashboard.html
           elif [ -f artifacts/policy-summary.json ]; then
-            job-watch status-dashboard --scan-report artifacts/policy-summary.json --output artifacts/status-dashboard.html
+            python -m job_watch.cli status-dashboard --scan-report artifacts/policy-summary.json --output artifacts/status-dashboard.html
           else
-            job-watch sources-check --format json --output artifacts/source-fallback.json || true
+            python -m job_watch.cli sources-check --format json --output artifacts/source-fallback.json || true
             if [ -f artifacts/source-fallback.json ]; then
-              job-watch status-dashboard --scan-report artifacts/source-fallback.json --output artifacts/status-dashboard.html
+              python -m job_watch.cli status-dashboard --scan-report artifacts/source-fallback.json --output artifacts/status-dashboard.html
             fi
           fi
 
@@ -155,11 +154,12 @@ jobs:
               "| --- | --- | ---: | ---: | ---: | ---: | --- |",
           ]
           for item in payload.get("company_results", []):
+              escaped_error = (item.get("error") or "").replace("|", "\\|")
               lines.append(
                   f"| {item.get('company_slug', '')} | {item.get('ats_kind', '')} | "
                   f"{item.get('fetched_jobs', 0)} | {item.get('matched_jobs', 0)} | "
                   f"{item.get('inserted_rows', 0)} | {item.get('updated_rows', 0)} | "
-                  f"{(item.get('error') or '').replace('|', '\\\\|')} |"
+                  f"{escaped_error} |"
               )
           summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
           summary_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
