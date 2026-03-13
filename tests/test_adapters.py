@@ -105,6 +105,41 @@ def test_smartrecruiters_adapter():
     asyncio.run(run())
 
 
+def test_smartrecruiters_adapter_falls_back_to_posting_url():
+    async def run():
+        payload = {
+            "content": [
+                {
+                    "id": "744000114512232",
+                    "name": "Project Manager",
+                    "location": {"city": "Boston", "region": "MA", "country": "us"},
+                    "department": {"label": "Operations"},
+                    "releasedDate": "2026-03-12T00:00:00Z",
+                    "typeOfEmployment": {"label": "Full-time"},
+                }
+            ]
+        }
+
+        def handler(_: httpx.Request) -> httpx.Response:
+            return httpx.Response(200, json=payload)
+
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            jobs = await SmartRecruitersAdapter().fetch(
+                client,
+                CompanyConfig(
+                    slug="wise",
+                    name="Wise",
+                    category="fintech",
+                    ats_kind="smartrecruiters",
+                    company_identifier="Wise",
+                    career_url="https://jobs.smartrecruiters.com/Wise",
+                ),
+            )
+        assert jobs[0].apply_url == "https://jobs.smartrecruiters.com/Wise/744000114512232"
+
+    asyncio.run(run())
+
+
 def test_workday_adapter():
     async def run():
         async with _client_for("workday.json") as client:

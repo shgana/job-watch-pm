@@ -44,7 +44,7 @@ class JobWatchService:
     ) -> ScanSummary:
         """Run a scan and synchronize matched jobs to the tracker."""
 
-        fetch_results = await self._fetch_all(company_slug=company_slug)
+        fetch_results = await self.fetch_sources(company_slug=company_slug)
         matched_records = []
         failures: list[str] = []
         fetched_jobs = 0
@@ -85,7 +85,7 @@ class JobWatchService:
     async def sources_check(self, company_slug: str | None = None) -> list[SourceCheckResult]:
         """Validate configured source endpoints."""
 
-        results = await self._fetch_all(company_slug=company_slug)
+        results = await self.fetch_sources(company_slug=company_slug)
         checks: list[SourceCheckResult] = []
         for result in results:
             checks.append(
@@ -135,7 +135,9 @@ class JobWatchService:
                 json.dump(rows, handle, indent=2)
         return len(rows)
 
-    async def _fetch_all(self, company_slug: str | None = None) -> list[FetchResult]:
+    async def fetch_sources(self, company_slug: str | None = None) -> list[FetchResult]:
+        """Fetch jobs from all enabled company sources."""
+
         companies = [company for company in self.companies if company.enabled]
         if company_slug:
             companies = [company for company in companies if company.slug == company_slug]

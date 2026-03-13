@@ -1,13 +1,59 @@
-# Starter catalog for tech, SaaS, and fintech companies.
-# Run `job-watch sources-check` periodically to validate feed identifiers and adjust any entries that drift.
+# Validated catalog for tech, SaaS, fintech, and tech-adjacent companies.
+# Each enabled entry returned a live, parseable ATS payload with at least one job on 2026-03-12.
+# Run `JOB_WATCH_RUN_LIVE_TESTS=1 python -m pytest tests/test_live_sources.py -q` to revalidate the full catalog.
 
 [[company]]
-slug = "asana"
-name = "Asana"
-category = "saas"
+slug = "1password"
+name = "1Password"
+category = "tech"
+ats_kind = "ashby"
+board_token = "1password"
+career_url = "https://jobs.ashbyhq.com/1password"
+enabled = true
+
+[[company]]
+slug = "2u"
+name = "2U"
+category = "edtech"
 ats_kind = "greenhouse"
-board_token = "asana"
-career_url = "https://boards.greenhouse.io/asana"
+board_token = "2u"
+career_url = "https://boards.greenhouse.io/2u"
+enabled = true
+
+[[company]]
+slug = "abnormal-security"
+name = "Abnormal Security"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "abnormalsecurity"
+career_url = "https://boards.greenhouse.io/abnormalsecurity"
+enabled = true
+
+[[company]]
+slug = "acorns"
+name = "Acorns"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "acorns"
+career_url = "https://jobs.ashbyhq.com/acorns"
+enabled = true
+
+[[company]]
+slug = "acuitymd"
+name = "AcuityMD"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "acuitymd"
+career_url = "https://boards.greenhouse.io/acuitymd"
+enabled = true
+
+[[company]]
+slug = "adyen"
+name = "Adyen"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "adyen"
+career_url = "https://boards.greenhouse.io/adyen"
 enabled = true
 
 [[company]]
@@ -20,6 +66,240 @@ career_url = "https://boards.greenhouse.io/affirm"
 enabled = true
 
 [[company]]
+slug = "airbnb"
+name = "Airbnb"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "airbnb"
+career_url = "https://boards.greenhouse.io/airbnb"
+enabled = true
+
+[[company]]
+slug = "airtable"
+name = "Airtable"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "airtable"
+career_url = "https://boards.greenhouse.io/airtable"
+enabled = true
+
+[[company]]
+slug = "alchemy"
+name = "Alchemy"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "alchemy"
+career_url = "https://boards.greenhouse.io/alchemy"
+enabled = true
+
+[[company]]
+slug = "algolia"
+name = "Algolia"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "algolia"
+career_url = "https://boards.greenhouse.io/algolia"
+enabled = true
+
+[[company]]
+slug = "alltrails"
+name = "AllTrails"
+category = "tech"
+ats_kind = "lever"
+site = "alltrails"
+career_url = "https://jobs.lever.co/alltrails"
+enabled = true
+
+[[company]]
+slug = "alma"
+name = "Alma"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "alma"
+career_url = "https://boards.greenhouse.io/alma"
+enabled = true
+
+[[company]]
+slug = "altruist"
+name = "Altruist"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "altruist"
+career_url = "https://boards.greenhouse.io/altruist"
+enabled = true
+
+[[company]]
+slug = "amplitude"
+name = "Amplitude"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "amplitude"
+career_url = "https://boards.greenhouse.io/amplitude"
+enabled = true
+
+[[company]]
+slug = "anaplan"
+name = "Anaplan"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "anaplan"
+career_url = "https://boards.greenhouse.io/anaplan"
+enabled = true
+
+[[company]]
+slug = "anduril"
+name = "Anduril"
+category = "frontier-tech"
+ats_kind = "greenhouse"
+board_token = "andurilindustries"
+career_url = "https://boards.greenhouse.io/andurilindustries"
+enabled = true
+
+[[company]]
+slug = "anyscale"
+name = "Anyscale"
+category = "ai"
+ats_kind = "ashby"
+board_token = "anyscale"
+career_url = "https://jobs.ashbyhq.com/anyscale"
+enabled = true
+
+[[company]]
+slug = "apollo-io"
+name = "Apollo.io"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "apolloio"
+career_url = "https://boards.greenhouse.io/apolloio"
+enabled = true
+
+[[company]]
+slug = "applovin"
+name = "AppLovin"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "applovin"
+career_url = "https://boards.greenhouse.io/applovin"
+enabled = true
+
+[[company]]
+slug = "articulate"
+name = "Articulate"
+category = "tech"
+ats_kind = "lever"
+site = "articulate"
+career_url = "https://jobs.lever.co/articulate"
+enabled = true
+
+[[company]]
+slug = "asana"
+name = "Asana"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "asana"
+career_url = "https://boards.greenhouse.io/asana"
+enabled = true
+
+[[company]]
+slug = "attentive"
+name = "Attentive"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "attentive"
+career_url = "https://boards.greenhouse.io/attentive"
+enabled = true
+
+[[company]]
+slug = "auditboard"
+name = "AuditBoard"
+category = "tech"
+ats_kind = "ashby"
+board_token = "auditboard"
+career_url = "https://jobs.ashbyhq.com/auditboard"
+enabled = true
+
+[[company]]
+slug = "aurora"
+name = "Aurora"
+category = "frontier-tech"
+ats_kind = "greenhouse"
+board_token = "aurorainnovation"
+career_url = "https://boards.greenhouse.io/aurorainnovation"
+enabled = true
+
+[[company]]
+slug = "avidxchange"
+name = "AvidXchange"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "avidxchangeinc"
+career_url = "https://boards.greenhouse.io/avidxchangeinc"
+enabled = true
+
+[[company]]
+slug = "axiom"
+name = "Axiom"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "axiom"
+career_url = "https://boards.greenhouse.io/axiom"
+enabled = true
+
+[[company]]
+slug = "benchling"
+name = "Benchling"
+category = "tech"
+ats_kind = "ashby"
+board_token = "benchling"
+career_url = "https://jobs.ashbyhq.com/benchling"
+enabled = true
+
+[[company]]
+slug = "betterment"
+name = "Betterment"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "betterment"
+career_url = "https://boards.greenhouse.io/betterment"
+enabled = true
+
+[[company]]
+slug = "betterup"
+name = "BetterUp"
+category = "tech"
+ats_kind = "ashby"
+board_token = "betterup"
+career_url = "https://jobs.ashbyhq.com/betterup"
+enabled = true
+
+[[company]]
+slug = "bill-com"
+name = "Bill.com"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "billcom"
+career_url = "https://boards.greenhouse.io/billcom"
+enabled = true
+
+[[company]]
+slug = "bitwarden"
+name = "Bitwarden"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "bitwarden"
+career_url = "https://boards.greenhouse.io/bitwarden"
+enabled = true
+
+[[company]]
+slug = "blockdaemon"
+name = "Blockdaemon"
+category = "tech"
+ats_kind = "ashby"
+board_token = "blockdaemon"
+career_url = "https://jobs.ashbyhq.com/blockdaemon"
+enabled = true
+
+[[company]]
 slug = "box"
 name = "Box"
 category = "saas"
@@ -29,12 +309,129 @@ career_url = "https://boards.greenhouse.io/boxinc"
 enabled = true
 
 [[company]]
+slug = "braze"
+name = "Braze"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "braze"
+career_url = "https://boards.greenhouse.io/braze"
+enabled = true
+
+[[company]]
+slug = "brex"
+name = "Brex"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "brex"
+career_url = "https://boards.greenhouse.io/brex"
+enabled = true
+
+[[company]]
+slug = "brightwheel"
+name = "Brightwheel"
+category = "tech"
+ats_kind = "ashby"
+board_token = "brightwheel"
+career_url = "https://jobs.ashbyhq.com/brightwheel"
+enabled = true
+
+[[company]]
+slug = "calendly"
+name = "Calendly"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "calendly"
+career_url = "https://boards.greenhouse.io/calendly"
+enabled = true
+
+[[company]]
+slug = "canva"
+name = "Canva"
+category = "tech"
+ats_kind = "smartrecruiters"
+company_identifier = "Canva"
+career_url = "https://jobs.smartrecruiters.com/Canva"
+enabled = true
+
+[[company]]
+slug = "captivateiq"
+name = "CaptivateIQ"
+category = "tech"
+ats_kind = "lever"
+site = "captivateiq"
+career_url = "https://jobs.lever.co/captivateiq"
+enabled = true
+
+[[company]]
+slug = "carta"
+name = "Carta"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "carta"
+career_url = "https://boards.greenhouse.io/carta"
+enabled = true
+
+[[company]]
+slug = "cedar"
+name = "Cedar"
+category = "tech"
+ats_kind = "ashby"
+board_token = "cedar"
+career_url = "https://jobs.ashbyhq.com/cedar"
+enabled = true
+
+[[company]]
+slug = "celonis"
+name = "Celonis"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "celonis"
+career_url = "https://boards.greenhouse.io/celonis"
+enabled = true
+
+[[company]]
 slug = "checkr"
 name = "Checkr"
-category = "fintech"
+category = "tech"
 ats_kind = "greenhouse"
 board_token = "checkr"
 career_url = "https://boards.greenhouse.io/checkr"
+enabled = true
+
+[[company]]
+slug = "chime"
+name = "Chime"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "chime"
+career_url = "https://boards.greenhouse.io/chime"
+enabled = true
+
+[[company]]
+slug = "clari"
+name = "Clari"
+category = "tech"
+ats_kind = "lever"
+site = "clari"
+career_url = "https://jobs.lever.co/clari"
+enabled = true
+
+[[company]]
+slug = "clickup"
+name = "ClickUp"
+category = "saas"
+ats_kind = "ashby"
+board_token = "clickup"
+career_url = "https://jobs.ashbyhq.com/clickup"
+enabled = true
+
+[[company]]
+slug = "clipboard-health"
+name = "Clipboard Health"
+category = "tech"
+ats_kind = "smartrecruiters"
+company_identifier = "ClipboardHealth"
+career_url = "https://jobs.smartrecruiters.com/ClipboardHealth"
 enabled = true
 
 [[company]]
@@ -44,6 +441,114 @@ category = "cloud"
 ats_kind = "greenhouse"
 board_token = "cloudflare"
 career_url = "https://boards.greenhouse.io/cloudflare"
+enabled = true
+
+[[company]]
+slug = "cloudwalk"
+name = "CloudWalk"
+category = "tech"
+ats_kind = "lever"
+site = "cloudwalk"
+career_url = "https://jobs.lever.co/cloudwalk"
+enabled = true
+
+[[company]]
+slug = "cockroach-labs"
+name = "Cockroach Labs"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "cockroachlabs"
+career_url = "https://boards.greenhouse.io/cockroachlabs"
+enabled = true
+
+[[company]]
+slug = "cohere"
+name = "Cohere"
+category = "ai"
+ats_kind = "ashby"
+board_token = "cohere"
+career_url = "https://jobs.ashbyhq.com/cohere"
+enabled = true
+
+[[company]]
+slug = "coinbase"
+name = "Coinbase"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "coinbase"
+career_url = "https://boards.greenhouse.io/coinbase"
+enabled = true
+
+[[company]]
+slug = "confluent"
+name = "Confluent"
+category = "saas"
+ats_kind = "ashby"
+board_token = "confluent"
+career_url = "https://jobs.ashbyhq.com/confluent"
+enabled = true
+
+[[company]]
+slug = "consensys"
+name = "ConsenSys"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "consensys"
+career_url = "https://boards.greenhouse.io/consensys"
+enabled = true
+
+[[company]]
+slug = "contentful"
+name = "Contentful"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "contentful"
+career_url = "https://boards.greenhouse.io/contentful"
+enabled = true
+
+[[company]]
+slug = "coursera"
+name = "Coursera"
+category = "edtech"
+ats_kind = "greenhouse"
+board_token = "coursera"
+career_url = "https://boards.greenhouse.io/coursera"
+enabled = true
+
+[[company]]
+slug = "cresta"
+name = "Cresta"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "cresta"
+career_url = "https://boards.greenhouse.io/cresta"
+enabled = true
+
+[[company]]
+slug = "cribl"
+name = "Cribl"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "cribl"
+career_url = "https://boards.greenhouse.io/cribl"
+enabled = true
+
+[[company]]
+slug = "cursor"
+name = "Cursor"
+category = "ai"
+ats_kind = "ashby"
+board_token = "cursor"
+career_url = "https://jobs.ashbyhq.com/cursor"
+enabled = true
+
+[[company]]
+slug = "dailypay"
+name = "DailyPay"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "dailypay"
+career_url = "https://jobs.ashbyhq.com/dailypay"
 enabled = true
 
 [[company]]
@@ -65,6 +570,51 @@ career_url = "https://boards.greenhouse.io/datadog"
 enabled = true
 
 [[company]]
+slug = "dataiku"
+name = "Dataiku"
+category = "data"
+ats_kind = "greenhouse"
+board_token = "dataiku"
+career_url = "https://boards.greenhouse.io/dataiku"
+enabled = true
+
+[[company]]
+slug = "dbt-labs"
+name = "dbt Labs"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "dbtlabsinc"
+career_url = "https://boards.greenhouse.io/dbtlabsinc"
+enabled = true
+
+[[company]]
+slug = "deel"
+name = "Deel"
+category = "tech"
+ats_kind = "ashby"
+board_token = "deel"
+career_url = "https://jobs.ashbyhq.com/deel"
+enabled = true
+
+[[company]]
+slug = "digitalocean"
+name = "DigitalOcean"
+category = "cloud"
+ats_kind = "greenhouse"
+board_token = "digitalocean98"
+career_url = "https://boards.greenhouse.io/digitalocean98"
+enabled = true
+
+[[company]]
+slug = "discord"
+name = "Discord"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "discord"
+career_url = "https://boards.greenhouse.io/discord"
+enabled = true
+
+[[company]]
 slug = "doordash"
 name = "DoorDash"
 category = "consumer-tech"
@@ -74,9 +624,27 @@ career_url = "https://boards.greenhouse.io/doordashusa"
 enabled = true
 
 [[company]]
+slug = "doximity"
+name = "Doximity"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "doximity"
+career_url = "https://boards.greenhouse.io/doximity"
+enabled = true
+
+[[company]]
+slug = "dropbox"
+name = "Dropbox"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "dropbox"
+career_url = "https://boards.greenhouse.io/dropbox"
+enabled = true
+
+[[company]]
 slug = "duolingo"
 name = "Duolingo"
-category = "consumer-tech"
+category = "edtech"
 ats_kind = "greenhouse"
 board_token = "duolingo"
 career_url = "https://boards.greenhouse.io/duolingo"
@@ -92,21 +660,336 @@ career_url = "https://boards.greenhouse.io/elastic"
 enabled = true
 
 [[company]]
-slug = "hashicorp"
-name = "HashiCorp"
+slug = "everlaw"
+name = "Everlaw"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "everlaw"
+career_url = "https://boards.greenhouse.io/everlaw"
+enabled = true
+
+[[company]]
+slug = "fanduel"
+name = "FanDuel"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "fanduel"
+career_url = "https://boards.greenhouse.io/fanduel"
+enabled = true
+
+[[company]]
+slug = "fastly"
+name = "Fastly"
 category = "cloud"
 ats_kind = "greenhouse"
-board_token = "hashicorp"
-career_url = "https://boards.greenhouse.io/hashicorp"
+board_token = "fastly"
+career_url = "https://boards.greenhouse.io/fastly"
+enabled = true
+
+[[company]]
+slug = "figma"
+name = "Figma"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "figma"
+career_url = "https://boards.greenhouse.io/figma"
+enabled = true
+
+[[company]]
+slug = "fireblocks"
+name = "Fireblocks"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "fireblocks"
+career_url = "https://boards.greenhouse.io/fireblocks"
+enabled = true
+
+[[company]]
+slug = "fivetran"
+name = "Fivetran"
+category = "data"
+ats_kind = "greenhouse"
+board_token = "fivetran"
+career_url = "https://boards.greenhouse.io/fivetran"
+enabled = true
+
+[[company]]
+slug = "flexport"
+name = "Flexport"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "flexport"
+career_url = "https://boards.greenhouse.io/flexport"
+enabled = true
+
+[[company]]
+slug = "fullstory"
+name = "FullStory"
+category = "tech"
+ats_kind = "ashby"
+board_token = "fullstory"
+career_url = "https://jobs.ashbyhq.com/fullstory"
+enabled = true
+
+[[company]]
+slug = "g2"
+name = "G2"
+category = "tech"
+ats_kind = "ashby"
+board_token = "g2"
+career_url = "https://jobs.ashbyhq.com/g2"
+enabled = true
+
+[[company]]
+slug = "glean"
+name = "Glean"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "gleanwork"
+career_url = "https://boards.greenhouse.io/gleanwork"
+enabled = true
+
+[[company]]
+slug = "gong"
+name = "Gong"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "gongio"
+career_url = "https://boards.greenhouse.io/gongio"
+enabled = true
+
+[[company]]
+slug = "grammarly"
+name = "Grammarly"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "grammarly"
+career_url = "https://boards.greenhouse.io/grammarly"
+enabled = true
+
+[[company]]
+slug = "greenlight"
+name = "Greenlight"
+category = "tech"
+ats_kind = "lever"
+site = "greenlight"
+career_url = "https://jobs.lever.co/greenlight"
+enabled = true
+
+[[company]]
+slug = "gusto"
+name = "Gusto"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "gusto"
+career_url = "https://boards.greenhouse.io/gusto"
+enabled = true
+
+[[company]]
+slug = "handshake"
+name = "Handshake"
+category = "tech"
+ats_kind = "ashby"
+board_token = "handshake"
+career_url = "https://jobs.ashbyhq.com/handshake"
+enabled = true
+
+[[company]]
+slug = "harness"
+name = "Harness"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "harnessinc"
+career_url = "https://boards.greenhouse.io/harnessinc"
+enabled = true
+
+[[company]]
+slug = "harvey"
+name = "Harvey"
+category = "ai"
+ats_kind = "ashby"
+board_token = "harvey"
+career_url = "https://jobs.ashbyhq.com/harvey"
+enabled = true
+
+[[company]]
+slug = "headway"
+name = "Headway"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "headway"
+career_url = "https://boards.greenhouse.io/headway"
+enabled = true
+
+[[company]]
+slug = "hellofresh"
+name = "HelloFresh"
+category = "consumer-tech"
+ats_kind = "greenhouse"
+board_token = "hellofresh"
+career_url = "https://boards.greenhouse.io/hellofresh"
+enabled = true
+
+[[company]]
+slug = "hopper"
+name = "Hopper"
+category = "tech"
+ats_kind = "ashby"
+board_token = "hopper"
+career_url = "https://jobs.ashbyhq.com/hopper"
 enabled = true
 
 [[company]]
 slug = "hubspot"
 name = "HubSpot"
-category = "saas"
+category = "tech"
 ats_kind = "greenhouse"
 board_token = "hubspotjobs"
 career_url = "https://boards.greenhouse.io/hubspotjobs"
+enabled = true
+
+[[company]]
+slug = "ibotta"
+name = "Ibotta"
+category = "tech"
+ats_kind = "smartrecruiters"
+company_identifier = "Ibotta"
+career_url = "https://jobs.smartrecruiters.com/Ibotta"
+enabled = true
+
+[[company]]
+slug = "instacart"
+name = "Instacart"
+category = "consumer-tech"
+ats_kind = "greenhouse"
+board_token = "instacart"
+career_url = "https://boards.greenhouse.io/instacart"
+enabled = true
+
+[[company]]
+slug = "intercom"
+name = "Intercom"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "intercom"
+career_url = "https://boards.greenhouse.io/intercom"
+enabled = true
+
+[[company]]
+slug = "iterable"
+name = "Iterable"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "iterable"
+career_url = "https://boards.greenhouse.io/iterable"
+enabled = true
+
+[[company]]
+slug = "komodo-health"
+name = "Komodo Health"
+category = "healthtech"
+ats_kind = "greenhouse"
+board_token = "komodohealth"
+career_url = "https://boards.greenhouse.io/komodohealth"
+enabled = true
+
+[[company]]
+slug = "lattice"
+name = "Lattice"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "lattice"
+career_url = "https://boards.greenhouse.io/lattice"
+enabled = true
+
+[[company]]
+slug = "launchdarkly"
+name = "LaunchDarkly"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "launchdarkly"
+career_url = "https://boards.greenhouse.io/launchdarkly"
+enabled = true
+
+[[company]]
+slug = "lemonade"
+name = "Lemonade"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "lemonade"
+career_url = "https://jobs.ashbyhq.com/lemonade"
+enabled = true
+
+[[company]]
+slug = "linear"
+name = "Linear"
+category = "saas"
+ats_kind = "ashby"
+board_token = "linear"
+career_url = "https://jobs.ashbyhq.com/linear"
+enabled = true
+
+[[company]]
+slug = "lucid-software"
+name = "Lucid Software"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "lucidsoftware"
+career_url = "https://boards.greenhouse.io/lucidsoftware"
+enabled = true
+
+[[company]]
+slug = "maven"
+name = "Maven"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "maven"
+career_url = "https://boards.greenhouse.io/maven"
+enabled = true
+
+[[company]]
+slug = "maven-clinic"
+name = "Maven Clinic"
+category = "healthtech"
+ats_kind = "greenhouse"
+board_token = "mavenclinic"
+career_url = "https://boards.greenhouse.io/mavenclinic"
+enabled = true
+
+[[company]]
+slug = "mercury"
+name = "Mercury"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "mercury"
+career_url = "https://boards.greenhouse.io/mercury"
+enabled = true
+
+[[company]]
+slug = "mindtickle"
+name = "Mindtickle"
+category = "tech"
+ats_kind = "lever"
+site = "mindtickle"
+career_url = "https://jobs.lever.co/mindtickle"
+enabled = true
+
+[[company]]
+slug = "mixpanel"
+name = "Mixpanel"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "mixpanel"
+career_url = "https://boards.greenhouse.io/mixpanel"
+enabled = true
+
+[[company]]
+slug = "modern-treasury"
+name = "Modern Treasury"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "moderntreasury"
+career_url = "https://jobs.ashbyhq.com/moderntreasury"
 enabled = true
 
 [[company]]
@@ -119,21 +1002,282 @@ career_url = "https://boards.greenhouse.io/mongodb"
 enabled = true
 
 [[company]]
+slug = "motive"
+name = "Motive"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "gomotive"
+career_url = "https://boards.greenhouse.io/gomotive"
+enabled = true
+
+[[company]]
+slug = "mural"
+name = "Mural"
+category = "tech"
+ats_kind = "ashby"
+board_token = "mural"
+career_url = "https://jobs.ashbyhq.com/mural"
+enabled = true
+
+[[company]]
+slug = "natera"
+name = "Natera"
+category = "healthtech"
+ats_kind = "greenhouse"
+board_token = "natera"
+career_url = "https://boards.greenhouse.io/natera"
+enabled = true
+
+[[company]]
+slug = "nerdwallet"
+name = "NerdWallet"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "nerdwallet"
+career_url = "https://jobs.ashbyhq.com/nerdwallet"
+enabled = true
+
+[[company]]
+slug = "netlify"
+name = "Netlify"
+category = "cloud"
+ats_kind = "greenhouse"
+board_token = "netlify"
+career_url = "https://boards.greenhouse.io/netlify"
+enabled = true
+
+[[company]]
+slug = "netskope"
+name = "Netskope"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "netskope"
+career_url = "https://boards.greenhouse.io/netskope"
+enabled = true
+
+[[company]]
+slug = "nextdoor"
+name = "Nextdoor"
+category = "consumer-tech"
+ats_kind = "greenhouse"
+board_token = "nextdoor"
+career_url = "https://boards.greenhouse.io/nextdoor"
+enabled = true
+
+[[company]]
+slug = "notable"
+name = "Notable"
+category = "tech"
+ats_kind = "ashby"
+board_token = "notable"
+career_url = "https://jobs.ashbyhq.com/notable"
+enabled = true
+
+[[company]]
+slug = "notion"
+name = "Notion"
+category = "saas"
+ats_kind = "ashby"
+board_token = "notion"
+career_url = "https://jobs.ashbyhq.com/notion"
+enabled = true
+
+[[company]]
+slug = "nubank"
+name = "Nubank"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "nubank"
+career_url = "https://boards.greenhouse.io/nubank"
+enabled = true
+
+[[company]]
 slug = "nuro"
 name = "Nuro"
-category = "autonomy"
+category = "frontier-tech"
 ats_kind = "greenhouse"
 board_token = "nuro"
 career_url = "https://boards.greenhouse.io/nuro"
 enabled = true
 
 [[company]]
+slug = "oklo"
+name = "Oklo"
+category = "frontier-tech"
+ats_kind = "greenhouse"
+board_token = "oklo"
+career_url = "https://boards.greenhouse.io/oklo"
+enabled = true
+
+[[company]]
+slug = "openai"
+name = "OpenAI"
+category = "ai"
+ats_kind = "ashby"
+board_token = "openai"
+career_url = "https://jobs.ashbyhq.com/openai"
+enabled = true
+
+[[company]]
+slug = "opendoor"
+name = "Opendoor"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "opendoor"
+career_url = "https://boards.greenhouse.io/opendoor"
+enabled = true
+
+[[company]]
+slug = "opensea"
+name = "OpenSea"
+category = "tech"
+ats_kind = "ashby"
+board_token = "opensea"
+career_url = "https://jobs.ashbyhq.com/opensea"
+enabled = true
+
+[[company]]
+slug = "openx"
+name = "OpenX"
+category = "tech"
+ats_kind = "lever"
+site = "openx"
+career_url = "https://jobs.lever.co/openx"
+enabled = true
+
+[[company]]
+slug = "outreach"
+name = "Outreach"
+category = "tech"
+ats_kind = "lever"
+site = "outreach"
+career_url = "https://jobs.lever.co/outreach"
+enabled = true
+
+[[company]]
+slug = "pagerduty"
+name = "PagerDuty"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "pagerduty"
+career_url = "https://boards.greenhouse.io/pagerduty"
+enabled = true
+
+[[company]]
+slug = "palantir"
+name = "Palantir"
+category = "tech"
+ats_kind = "lever"
+site = "palantir"
+career_url = "https://jobs.lever.co/palantir"
+enabled = true
+
+[[company]]
+slug = "pandadoc"
+name = "PandaDoc"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "pandadoc"
+career_url = "https://boards.greenhouse.io/pandadoc"
+enabled = true
+
+[[company]]
+slug = "patreon"
+name = "Patreon"
+category = "tech"
+ats_kind = "ashby"
+board_token = "patreon"
+career_url = "https://jobs.ashbyhq.com/patreon"
+enabled = true
+
+[[company]]
+slug = "paxos"
+name = "Paxos"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "paxos"
+career_url = "https://jobs.ashbyhq.com/paxos"
+enabled = true
+
+[[company]]
+slug = "persona"
+name = "Persona"
+category = "tech"
+ats_kind = "ashby"
+board_token = "persona"
+career_url = "https://jobs.ashbyhq.com/persona"
+enabled = true
+
+[[company]]
+slug = "pinecone"
+name = "Pinecone"
+category = "data"
+ats_kind = "ashby"
+board_token = "pinecone"
+career_url = "https://jobs.ashbyhq.com/pinecone"
+enabled = true
+
+[[company]]
 slug = "plaid"
 name = "Plaid"
 category = "fintech"
-ats_kind = "greenhouse"
+ats_kind = "ashby"
 board_token = "plaid"
-career_url = "https://boards.greenhouse.io/plaid"
+career_url = "https://jobs.ashbyhq.com/plaid"
+enabled = true
+
+[[company]]
+slug = "planet"
+name = "Planet"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "planetlabs"
+career_url = "https://boards.greenhouse.io/planetlabs"
+enabled = true
+
+[[company]]
+slug = "qualtrics"
+name = "Qualtrics"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "qualtrics"
+career_url = "https://boards.greenhouse.io/qualtrics"
+enabled = true
+
+[[company]]
+slug = "ramp"
+name = "Ramp"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "ramp"
+career_url = "https://jobs.ashbyhq.com/ramp"
+enabled = true
+
+[[company]]
+slug = "reddit"
+name = "Reddit"
+category = "consumer-tech"
+ats_kind = "greenhouse"
+board_token = "reddit"
+career_url = "https://boards.greenhouse.io/reddit"
+enabled = true
+
+[[company]]
+slug = "replit"
+name = "Replit"
+category = "ai"
+ats_kind = "ashby"
+board_token = "replit"
+career_url = "https://jobs.ashbyhq.com/replit"
+enabled = true
+
+[[company]]
+slug = "riot-games"
+name = "Riot Games"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "riotgames"
+career_url = "https://boards.greenhouse.io/riotgames"
 enabled = true
 
 [[company]]
@@ -155,27 +1299,144 @@ career_url = "https://boards.greenhouse.io/roblox"
 enabled = true
 
 [[company]]
+slug = "rocket-lab"
+name = "Rocket Lab"
+category = "frontier-tech"
+ats_kind = "greenhouse"
+board_token = "rocketlab"
+career_url = "https://boards.greenhouse.io/rocketlab"
+enabled = true
+
+[[company]]
+slug = "rokt"
+name = "Rokt"
+category = "tech"
+ats_kind = "ashby"
+board_token = "rokt"
+career_url = "https://jobs.ashbyhq.com/rokt"
+enabled = true
+
+[[company]]
+slug = "rubrik"
+name = "Rubrik"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "rubrik"
+career_url = "https://boards.greenhouse.io/rubrik"
+enabled = true
+
+[[company]]
 slug = "samsara"
 name = "Samsara"
-category = "iot"
+category = "tech"
 ats_kind = "greenhouse"
 board_token = "samsara"
 career_url = "https://boards.greenhouse.io/samsara"
 enabled = true
 
 [[company]]
+slug = "scale-ai"
+name = "Scale AI"
+category = "ai"
+ats_kind = "greenhouse"
+board_token = "scaleai"
+career_url = "https://boards.greenhouse.io/scaleai"
+enabled = true
+
+[[company]]
+slug = "seatgeek"
+name = "SeatGeek"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "seatgeek"
+career_url = "https://boards.greenhouse.io/seatgeek"
+enabled = true
+
+[[company]]
+slug = "sentry"
+name = "Sentry"
+category = "devtools"
+ats_kind = "ashby"
+board_token = "sentry"
+career_url = "https://jobs.ashbyhq.com/sentry"
+enabled = true
+
+[[company]]
+slug = "servicetitan"
+name = "ServiceTitan"
+category = "saas"
+ats_kind = "smartrecruiters"
+company_identifier = "ServiceTitan"
+career_url = "https://jobs.smartrecruiters.com/ServiceTitan"
+enabled = true
+
+[[company]]
+slug = "shippo"
+name = "Shippo"
+category = "tech"
+ats_kind = "lever"
+site = "shippo"
+career_url = "https://jobs.lever.co/shippo"
+enabled = true
+
+[[company]]
+slug = "sift"
+name = "Sift"
+category = "tech"
+ats_kind = "ashby"
+board_token = "sift"
+career_url = "https://jobs.ashbyhq.com/sift"
+enabled = true
+
+[[company]]
+slug = "skydio"
+name = "Skydio"
+category = "frontier-tech"
+ats_kind = "ashby"
+board_token = "skydio"
+career_url = "https://jobs.ashbyhq.com/skydio"
+enabled = true
+
+[[company]]
 slug = "snowflake"
 name = "Snowflake"
 category = "data"
-ats_kind = "greenhouse"
+ats_kind = "ashby"
 board_token = "snowflake"
-career_url = "https://boards.greenhouse.io/snowflake"
+career_url = "https://jobs.ashbyhq.com/snowflake"
+enabled = true
+
+[[company]]
+slug = "sprout-social"
+name = "Sprout Social"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "sproutsocial"
+career_url = "https://boards.greenhouse.io/sproutsocial"
+enabled = true
+
+[[company]]
+slug = "squarespace"
+name = "Squarespace"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "squarespace"
+career_url = "https://boards.greenhouse.io/squarespace"
+enabled = true
+
+[[company]]
+slug = "stash"
+name = "Stash"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "stashinvest"
+career_url = "https://boards.greenhouse.io/stashinvest"
 enabled = true
 
 [[company]]
 slug = "stripe"
 name = "Stripe"
-category = "fintech"
+category = "tech"
 ats_kind = "greenhouse"
 board_token = "stripe"
 career_url = "https://boards.greenhouse.io/stripe"
@@ -184,271 +1445,64 @@ enabled = true
 [[company]]
 slug = "toast"
 name = "Toast"
-category = "fintech"
+category = "tech"
 ats_kind = "greenhouse"
-board_token = "toasttab"
-career_url = "https://boards.greenhouse.io/toasttab"
+board_token = "toast"
+career_url = "https://boards.greenhouse.io/toast"
 enabled = true
 
 [[company]]
-slug = "coursera"
-name = "Coursera"
-category = "consumer-tech"
+slug = "tripactions"
+name = "TripActions"
+category = "tech"
 ats_kind = "greenhouse"
-board_token = "coursera"
-career_url = "https://boards.greenhouse.io/coursera"
-enabled = true
-
-[[company]]
-slug = "reddit"
-name = "Reddit"
-category = "consumer-tech"
-ats_kind = "lever"
-site = "reddit"
-career_url = "https://jobs.lever.co/reddit"
-enabled = true
-
-[[company]]
-slug = "coinbase"
-name = "Coinbase"
-category = "fintech"
-ats_kind = "lever"
-site = "coinbase"
-career_url = "https://jobs.lever.co/coinbase"
-enabled = true
-
-[[company]]
-slug = "zapier"
-name = "Zapier"
-category = "saas"
-ats_kind = "lever"
-site = "zapier"
-career_url = "https://jobs.lever.co/zapier"
+board_token = "tripactions"
+career_url = "https://boards.greenhouse.io/tripactions"
 enabled = true
 
 [[company]]
 slug = "twilio"
 name = "Twilio"
 category = "cloud"
-ats_kind = "lever"
-site = "twilio"
-career_url = "https://jobs.lever.co/twilio"
-enabled = true
-
-[[company]]
-slug = "netlify"
-name = "Netlify"
-category = "devtools"
-ats_kind = "lever"
-site = "netlify"
-career_url = "https://jobs.lever.co/netlify"
+ats_kind = "greenhouse"
+board_token = "twilio"
+career_url = "https://boards.greenhouse.io/twilio"
 enabled = true
 
 [[company]]
 slug = "udemy"
 name = "Udemy"
-category = "consumer-tech"
-ats_kind = "lever"
-site = "udemy"
-career_url = "https://jobs.lever.co/udemy"
+category = "edtech"
+ats_kind = "greenhouse"
+board_token = "udemy"
+career_url = "https://boards.greenhouse.io/udemy"
 enabled = true
 
 [[company]]
-slug = "navan"
-name = "Navan"
-category = "fintech"
-ats_kind = "lever"
-site = "navan"
-career_url = "https://jobs.lever.co/navan"
+slug = "unity"
+name = "Unity"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "unity3d"
+career_url = "https://boards.greenhouse.io/unity3d"
 enabled = true
 
 [[company]]
-slug = "eventbrite"
-name = "Eventbrite"
-category = "consumer-tech"
-ats_kind = "lever"
-site = "eventbrite"
-career_url = "https://jobs.lever.co/eventbrite"
-enabled = true
-
-[[company]]
-slug = "flexport"
-name = "Flexport"
-category = "logistics-tech"
-ats_kind = "lever"
-site = "flexport"
-career_url = "https://jobs.lever.co/flexport"
-enabled = true
-
-[[company]]
-slug = "digitalocean"
-name = "DigitalOcean"
-category = "cloud"
-ats_kind = "lever"
-site = "digitalocean98"
-career_url = "https://jobs.lever.co/digitalocean98"
-enabled = true
-
-[[company]]
-slug = "openai"
-name = "OpenAI"
-category = "ai"
+slug = "vanta"
+name = "Vanta"
+category = "tech"
 ats_kind = "ashby"
-board_token = "openai"
-career_url = "https://jobs.ashbyhq.com/openai"
-enabled = true
-
-[[company]]
-slug = "anthropic"
-name = "Anthropic"
-category = "ai"
-ats_kind = "ashby"
-board_token = "anthropic"
-career_url = "https://jobs.ashbyhq.com/anthropic"
-enabled = true
-
-[[company]]
-slug = "airtable"
-name = "Airtable"
-category = "saas"
-ats_kind = "ashby"
-board_token = "airtable"
-career_url = "https://jobs.ashbyhq.com/airtable"
-enabled = true
-
-[[company]]
-slug = "brex"
-name = "Brex"
-category = "fintech"
-ats_kind = "ashby"
-board_token = "brex"
-career_url = "https://jobs.ashbyhq.com/brex"
-enabled = true
-
-[[company]]
-slug = "ramp"
-name = "Ramp"
-category = "fintech"
-ats_kind = "ashby"
-board_token = "ramp"
-career_url = "https://jobs.ashbyhq.com/ramp"
+board_token = "vanta"
+career_url = "https://jobs.ashbyhq.com/vanta"
 enabled = true
 
 [[company]]
 slug = "vercel"
 name = "Vercel"
-category = "devtools"
-ats_kind = "ashby"
+category = "saas"
+ats_kind = "greenhouse"
 board_token = "vercel"
-career_url = "https://jobs.ashbyhq.com/vercel"
-enabled = true
-
-[[company]]
-slug = "figma"
-name = "Figma"
-category = "saas"
-ats_kind = "ashby"
-board_token = "figma"
-career_url = "https://jobs.ashbyhq.com/figma"
-enabled = true
-
-[[company]]
-slug = "retool"
-name = "Retool"
-category = "devtools"
-ats_kind = "ashby"
-board_token = "retool"
-career_url = "https://jobs.ashbyhq.com/retool"
-enabled = true
-
-[[company]]
-slug = "notion"
-name = "Notion"
-category = "saas"
-ats_kind = "ashby"
-board_token = "notion"
-career_url = "https://jobs.ashbyhq.com/notion"
-enabled = true
-
-[[company]]
-slug = "linear"
-name = "Linear"
-category = "saas"
-ats_kind = "ashby"
-board_token = "linear"
-career_url = "https://jobs.ashbyhq.com/linear"
-enabled = true
-
-[[company]]
-slug = "loom"
-name = "Loom"
-category = "saas"
-ats_kind = "ashby"
-board_token = "loom"
-career_url = "https://jobs.ashbyhq.com/loom"
-enabled = true
-
-[[company]]
-slug = "rippling"
-name = "Rippling"
-category = "saas"
-ats_kind = "ashby"
-board_token = "rippling"
-career_url = "https://jobs.ashbyhq.com/rippling"
-enabled = true
-
-[[company]]
-slug = "scaleai"
-name = "Scale AI"
-category = "ai"
-ats_kind = "ashby"
-board_token = "scaleai"
-career_url = "https://jobs.ashbyhq.com/scaleai"
-enabled = true
-
-[[company]]
-slug = "discord"
-name = "Discord"
-category = "consumer-tech"
-ats_kind = "ashby"
-board_token = "discord"
-career_url = "https://jobs.ashbyhq.com/discord"
-enabled = true
-
-[[company]]
-slug = "mercury"
-name = "Mercury"
-category = "fintech"
-ats_kind = "ashby"
-board_token = "mercury"
-career_url = "https://jobs.ashbyhq.com/mercury"
-enabled = true
-
-[[company]]
-slug = "clerk"
-name = "Clerk"
-category = "devtools"
-ats_kind = "ashby"
-board_token = "clerk"
-career_url = "https://jobs.ashbyhq.com/clerk"
-enabled = true
-
-[[company]]
-slug = "cursor"
-name = "Cursor"
-category = "ai"
-ats_kind = "ashby"
-board_token = "cursor"
-career_url = "https://jobs.ashbyhq.com/cursor"
-enabled = true
-
-[[company]]
-slug = "wise"
-name = "Wise"
-category = "fintech"
-ats_kind = "smartrecruiters"
-company_identifier = "Wise"
-career_url = "https://jobs.smartrecruiters.com/Wise"
+career_url = "https://boards.greenhouse.io/vercel"
 enabled = true
 
 [[company]]
@@ -461,271 +1515,73 @@ career_url = "https://jobs.smartrecruiters.com/Visa"
 enabled = true
 
 [[company]]
-slug = "peloton"
-name = "Peloton"
-category = "consumer-tech"
-ats_kind = "smartrecruiters"
-company_identifier = "Peloton"
-career_url = "https://jobs.smartrecruiters.com/Peloton"
+slug = "webflow"
+name = "Webflow"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "webflow"
+career_url = "https://boards.greenhouse.io/webflow"
 enabled = true
 
 [[company]]
-slug = "adobe"
-name = "Adobe"
-category = "saas"
-ats_kind = "workday"
-career_url = "https://careers.adobe.com"
-feed_url = "https://adobe.wd5.myworkdayjobs.com/wday/cxs/adobe/external_experienced/jobs"
+slug = "whatnot"
+name = "Whatnot"
+category = "tech"
+ats_kind = "ashby"
+board_token = "whatnot"
+career_url = "https://jobs.ashbyhq.com/whatnot"
 enabled = true
 
 [[company]]
-slug = "okta"
-name = "Okta"
-category = "security"
-ats_kind = "workday"
-career_url = "https://www.okta.com/company/careers/"
-feed_url = "https://wd1.myworkdaysite.com/wday/cxs/okta/OktaCareers/jobs"
-enabled = true
-
-[[company]]
-slug = "servicenow"
-name = "ServiceNow"
-category = "saas"
-ats_kind = "workday"
-career_url = "https://careers.servicenow.com"
-feed_url = "https://servicenow.wd5.myworkdayjobs.com/wday/cxs/servicenow/servicenow/jobs"
-enabled = true
-
-[[company]]
-slug = "intuit"
-name = "Intuit"
-category = "fintech"
-ats_kind = "workday"
-career_url = "https://www.intuit.com/careers/"
-feed_url = "https://intuit.wd5.myworkdayjobs.com/wday/cxs/intuit/careers/jobs"
-enabled = true
-
-[[company]]
-slug = "capitalone"
-name = "Capital One"
-category = "fintech"
-ats_kind = "workday"
-career_url = "https://www.capitalonecareers.com"
-feed_url = "https://capitalone.wd1.myworkdayjobs.com/wday/cxs/capitalone/Capital_One/jobs"
-enabled = true
-
-[[company]]
-slug = "brex-enterprise"
-name = "Brex Enterprise"
-category = "fintech"
-ats_kind = "ashby"
-board_token = "brex"
-career_url = "https://jobs.ashbyhq.com/brex"
-enabled = false
-
-[[company]]
-slug = "bolt"
-name = "Bolt"
-category = "fintech"
-ats_kind = "greenhouse"
-board_token = "bolt"
-career_url = "https://boards.greenhouse.io/bolt"
-enabled = false
-
-[[company]]
-slug = "gong"
-name = "Gong"
-category = "saas"
-ats_kind = "greenhouse"
-board_token = "gong"
-career_url = "https://boards.greenhouse.io/gong"
-enabled = false
-
-[[company]]
-slug = "snyk"
-name = "Snyk"
-category = "security"
-ats_kind = "greenhouse"
-board_token = "snyk"
-career_url = "https://boards.greenhouse.io/snyk"
-enabled = false
-
-[[company]]
-slug = "atlassian"
-name = "Atlassian"
-category = "saas"
-ats_kind = "greenhouse"
-board_token = "atlassian"
-career_url = "https://boards.greenhouse.io/atlassian"
-enabled = false
-
-[[company]]
-slug = "splunk"
-name = "Splunk"
-category = "security"
-ats_kind = "greenhouse"
-board_token = "splunk"
-career_url = "https://boards.greenhouse.io/splunk"
-enabled = false
-
-[[company]]
-slug = "miro"
-name = "Miro"
-category = "saas"
-ats_kind = "greenhouse"
-board_token = "miro"
-career_url = "https://boards.greenhouse.io/miro"
-enabled = false
-
-[[company]]
-slug = "dropbox"
-name = "Dropbox"
-category = "saas"
-ats_kind = "greenhouse"
-board_token = "dropbox"
-career_url = "https://boards.greenhouse.io/dropbox"
-enabled = false
-
-[[company]]
-slug = "canva"
-name = "Canva"
-category = "saas"
-ats_kind = "greenhouse"
-board_token = "canva"
-career_url = "https://boards.greenhouse.io/canva"
-enabled = false
-
-[[company]]
-slug = "intercom"
-name = "Intercom"
-category = "saas"
-ats_kind = "greenhouse"
-board_token = "intercom"
-career_url = "https://boards.greenhouse.io/intercom"
-enabled = false
-
-[[company]]
-slug = "bolt-fintech"
-name = "Bolt Fintech"
-category = "fintech"
-ats_kind = "lever"
-site = "bolt"
-career_url = "https://jobs.lever.co/bolt"
-enabled = false
-
-[[company]]
-slug = "personio"
-name = "Personio"
-category = "saas"
-ats_kind = "lever"
-site = "personio"
-career_url = "https://jobs.lever.co/personio"
-enabled = false
-
-[[company]]
-slug = "mural"
-name = "Mural"
-category = "saas"
-ats_kind = "lever"
-site = "mural"
-career_url = "https://jobs.lever.co/mural"
-enabled = false
-
-[[company]]
-slug = "grammarly"
-name = "Grammarly"
-category = "saas"
-ats_kind = "lever"
-site = "grammarly"
-career_url = "https://jobs.lever.co/grammarly"
-enabled = false
-
-[[company]]
-slug = "brex-market-risk"
-name = "Brex Market Risk"
-category = "fintech"
-ats_kind = "ashby"
-board_token = "brex"
-career_url = "https://jobs.ashbyhq.com/brex"
-enabled = false
-
-[[company]]
-slug = "dbt"
-name = "dbt Labs"
-category = "data"
-ats_kind = "ashby"
-board_token = "dbtlabs"
-career_url = "https://jobs.ashbyhq.com/dbtlabs"
-enabled = false
-
-[[company]]
-slug = "perplexity"
-name = "Perplexity"
-category = "ai"
-ats_kind = "ashby"
-board_token = "perplexity"
-career_url = "https://jobs.ashbyhq.com/perplexity"
-enabled = false
-
-[[company]]
-slug = "anduril"
-name = "Anduril"
-category = "defense-tech"
-ats_kind = "ashby"
-board_token = "anduril"
-career_url = "https://jobs.ashbyhq.com/anduril"
-enabled = false
-
-[[company]]
-slug = "ramp-experimental"
-name = "Ramp Experimental"
-category = "fintech"
-ats_kind = "ashby"
-board_token = "ramp"
-career_url = "https://jobs.ashbyhq.com/ramp"
-enabled = false
-
-[[company]]
-slug = "squarespace"
-name = "Squarespace"
-category = "saas"
-ats_kind = "smartrecruiters"
-company_identifier = "Squarespace"
-career_url = "https://jobs.smartrecruiters.com/Squarespace"
-enabled = false
-
-[[company]]
-slug = "wayfair"
-name = "Wayfair"
-category = "consumer-tech"
-ats_kind = "smartrecruiters"
-company_identifier = "Wayfair"
-career_url = "https://jobs.smartrecruiters.com/Wayfair"
-enabled = false
-
-[[company]]
-slug = "fiserv"
-name = "Fiserv"
+slug = "wise"
+name = "Wise"
 category = "fintech"
 ats_kind = "smartrecruiters"
-company_identifier = "Fiserv"
-career_url = "https://jobs.smartrecruiters.com/Fiserv"
-enabled = false
+company_identifier = "Wise"
+career_url = "https://jobs.smartrecruiters.com/Wise"
+enabled = true
 
 [[company]]
-slug = "docusign"
-name = "DocuSign"
-category = "saas"
-ats_kind = "workday"
-career_url = "https://www.docusign.com/company/careers"
-feed_url = "https://docusign.wd1.myworkdayjobs.com/wday/cxs/docusign/docusign/jobs"
-enabled = false
+slug = "wiz"
+name = "Wiz"
+category = "tech"
+ats_kind = "greenhouse"
+board_token = "wizinc"
+career_url = "https://boards.greenhouse.io/wizinc"
+enabled = true
 
 [[company]]
-slug = "workday"
-name = "Workday"
+slug = "yext"
+name = "Yext"
 category = "saas"
-ats_kind = "workday"
-career_url = "https://workday.wd5.myworkdayjobs.com/Workday"
-feed_url = "https://workday.wd5.myworkdayjobs.com/wday/cxs/workday/Workday/jobs"
-enabled = false
+ats_kind = "greenhouse"
+board_token = "yext"
+career_url = "https://boards.greenhouse.io/yext"
+enabled = true
+
+[[company]]
+slug = "yotpo"
+name = "Yotpo"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "yotpo"
+career_url = "https://boards.greenhouse.io/yotpo"
+enabled = true
+
+[[company]]
+slug = "zapier"
+name = "Zapier"
+category = "tech"
+ats_kind = "ashby"
+board_token = "zapier"
+career_url = "https://jobs.ashbyhq.com/zapier"
+enabled = true
+
+[[company]]
+slug = "zocdoc"
+name = "Zocdoc"
+category = "healthtech"
+ats_kind = "greenhouse"
+board_token = "zocdoc"
+career_url = "https://boards.greenhouse.io/zocdoc"
+enabled = true

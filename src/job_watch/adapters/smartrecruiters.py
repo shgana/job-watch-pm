@@ -20,14 +20,16 @@ class SmartRecruitersAdapter(SourceAdapter):
         payload = await self.get_json(client, url, headers=company.headers)
         jobs: list[JobRecord] = []
         for item in payload.get("content", []):
+            job_id = str(item.get("id", ""))
             location = _format_location(item.get("location") or {})
+            apply_url = item.get("applyUrl") or _posting_url(identifier, job_id)
             jobs.append(
                 JobRecord(
-                    job_key=stable_job_key(company.slug, str(item.get("id", "")), item.get("name", ""), item.get("applyUrl", "")),
+                    job_key=stable_job_key(company.slug, job_id, item.get("name", ""), apply_url),
                     company_slug=company.slug,
                     company_name=company.name,
                     ats_kind=self.ats_kind,
-                    source_job_id=str(item.get("id", "")),
+                    source_job_id=job_id,
                     title=item.get("name", ""),
                     team="",
                     department=(item.get("department") or {}).get("label", ""),
@@ -35,7 +37,7 @@ class SmartRecruitersAdapter(SourceAdapter):
                     location_normalized=location,
                     posted_at=self.parse_date(item.get("releasedDate")),
                     updated_at=self.parse_date(item.get("releasedDate")),
-                    apply_url=item.get("applyUrl", ""),
+                    apply_url=apply_url,
                     career_page_url=company.career_url,
                     employment_type=(item.get("typeOfEmployment") or {}).get("label", ""),
                     remote_flag="remote" in location.lower(),
@@ -50,3 +52,9 @@ def _format_location(location: dict) -> str:
     region = location.get("region", "")
     country = location.get("country", "")
     return ", ".join(part for part in [city, region, country] if part)
+
+
+def _posting_url(identifier: str, job_id: str) -> str:
+    if not job_id:
+        return ""
+    return f"https://jobs.smartrecruiters.com/{identifier}/{job_id}"

@@ -8,6 +8,7 @@
 - Strict title and metro matching for BA/PM roles in Seattle, SF Bay Area, NYC, Boston, and Northern Virginia
 - Google Sheets sync that preserves manual status, notes, and priority columns
 - Cron-ready CLI plus a GitHub Actions workflow for twice-daily hosted runs
+- A validated catalog of 176 enabled companies backed by live source tests
 
 ## Quick Start
 
@@ -43,9 +44,18 @@ job-watch sources-check
 job-watch sources-check --format json --output exports/source-health.json
 ```
 
+Run live source validation for every enabled company:
+
+```bash
+JOB_WATCH_RUN_LIVE_TESTS=1 python -m pytest -q tests/test_live_sources.py
+```
+
 ## Hosted Schedule
 
-The repo includes [`job-watch.yml`](/Users/shyam/Documents/marketplaceflipper/.github/workflows/job-watch.yml), which runs twice daily on GitHub Actions and can also be triggered manually.
+The repo includes:
+
+- `.github/workflows/job-watch.yml` for the twice-daily scan and default unit test suite
+- `.github/workflows/source-health.yml` for daily live validation of every enabled company source
 
 Required GitHub Actions secrets:
 
@@ -56,6 +66,8 @@ Required GitHub Actions secrets:
 
 - [`config/settings.toml`](/Users/shyam/Documents/marketplaceflipper/ba+pm role scraper/config/settings.toml)
 - [`config/companies.toml`](/Users/shyam/Documents/marketplaceflipper/ba+pm role scraper/config/companies.toml)
+
+The current catalog was revalidated live on March 12, 2026. The enabled sources are direct company ATS boards and APIs rather than job aggregators.
 
 Override them with:
 
