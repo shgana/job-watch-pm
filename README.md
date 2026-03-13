@@ -64,8 +64,8 @@ Required GitHub Actions secrets:
 
 ## Config
 
-- [`config/settings.toml`](/Users/shyam/Documents/marketplaceflipper/ba+pm role scraper/config/settings.toml)
-- [`config/companies.toml`](/Users/shyam/Documents/marketplaceflipper/ba+pm role scraper/config/companies.toml)
+- [`config/settings.toml`](/Users/shyam/Documents/job-watch-pm/config/settings.toml)
+- [`config/companies.toml`](/Users/shyam/Documents/job-watch-pm/config/companies.toml)
 
 The current catalog was revalidated live on March 12, 2026. The enabled sources are direct company ATS boards and APIs rather than job aggregators.
 
