@@ -6,6 +6,9 @@ on:
     - cron: "0 13 * * *"
     - cron: "0 21 * * *"
 
+permissions:
+  contents: read
+
 jobs:
   scan:
     runs-on: ubuntu-latest
@@ -21,6 +24,67 @@ jobs:
       - name: Install package
         run: python -m pip install -e ".[dev]"
 
+      - name: Validate official source policy
+        run: |
+          mkdir -p artifacts
+          job-watch policy-check --format json --output artifacts/policy-summary.json
+
+      - name: Publish policy summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          summary_path = Path("artifacts/policy-summary.json")
+          if not summary_path.exists():
+              raise SystemExit(0)
+
+          violations = json.loads(summary_path.read_text(encoding="utf-8"))
+          lines = [
+              "## Source Policy Check",
+              "",
+              f"- violations: {len(violations)}",
+          ]
+          if violations:
+              lines.extend(
+                  [
+                      "",
+                      "| company | error |",
+                      "| --- | --- |",
+                  ]
+              )
+              for item in violations:
+                  lines.append(
+                      f"| {item.get('company_slug', '')} | {(item.get('error', '')).replace('|', '\\\\|')} |"
+                  )
+          summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          with summary_file.open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+
+      - name: Detect browser-backed sources
+        id: browser
+        run: |
+          python - <<'PY'
+          import os
+          import tomllib
+          from pathlib import Path
+
+          data = tomllib.loads(Path("config/companies.toml").read_text(encoding="utf-8"))
+          needs_browser = any(
+              company.get("enabled", True) and company.get("requires_browser", False)
+              for company in data.get("company", [])
+          )
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              handle.write(f"needs_browser={'true' if needs_browser else 'false'}\n")
+          PY
+
+      - name: Install Playwright browser dependencies
+        if: steps.browser.outputs.needs_browser == 'true'
+        run: python -m playwright install --with-deps chromium
+
       - name: Run default test suite
         run: python -m pytest -q
 
@@ -28,4 +92,118 @@ jobs:
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-        run: job-watch scan
+        run: |
+          mkdir -p artifacts
+          job-watch scan --format json --output artifacts/scan-summary.json
+
+      - name: Build status dashboard
+        if: always()
+        run: |
+          if [ -f artifacts/scan-summary.json ]; then
+            job-watch status-dashboard --scan-report artifacts/scan-summary.json --output artifacts/status-dashboard.html
+          elif [ -f artifacts/policy-summary.json ]; then
+            job-watch status-dashboard --scan-report artifacts/policy-summary.json --output artifacts/status-dashboard.html
+          else
+            job-watch sources-check --format json --output artifacts/source-fallback.json || true
+            if [ -f artifacts/source-fallback.json ]; then
+              job-watch status-dashboard --scan-report artifacts/source-fallback.json --output artifacts/status-dashboard.html
+            fi
+          fi
+
+      - name: Prepare Pages site
+        if: always()
+        run: |
+          mkdir -p artifacts/site
+          if [ -f artifacts/status-dashboard.html ]; then
+            cp artifacts/status-dashboard.html artifacts/site/index.html
+          else
+            cat <<'HTML' > artifacts/site/index.html
+          <!doctype html>
+          <html lang="en">
+          <head><meta charset="utf-8"><title>Job Watch Source Status</title></head>
+          <body><h1>Job Watch Source Status</h1><p>Dashboard generation failed for this run.</p></body>
+          </html>
+          HTML
+          fi
+
+      - name: Publish scan summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          summary_path = Path("artifacts/scan-summary.json")
+          if not summary_path.exists():
+              print("No scan summary generated.")
+              raise SystemExit(0)
+
+          payload = json.loads(summary_path.read_text(encoding="utf-8"))
+          failures = [item for item in payload.get("company_results", []) if item.get("error")]
+          lines = [
+              "## Job Watch Scan",
+              "",
+              f"- scanned companies: {payload.get('scanned_companies', 0)}",
+              f"- fetched jobs: {payload.get('fetched_jobs', 0)}",
+              f"- matched jobs: {payload.get('matched_jobs', 0)}",
+              f"- inserted rows: {payload.get('new_rows', 0)}",
+              f"- updated rows: {payload.get('updated_rows', 0)}",
+              f"- failures: {len(failures)}",
+              "",
+              "| company | source | fetched | matched | inserted | updated | error |",
+              "| --- | --- | ---: | ---: | ---: | ---: | --- |",
+          ]
+          for item in payload.get("company_results", []):
+              lines.append(
+                  f"| {item.get('company_slug', '')} | {item.get('ats_kind', '')} | "
+                  f"{item.get('fetched_jobs', 0)} | {item.get('matched_jobs', 0)} | "
+                  f"{item.get('inserted_rows', 0)} | {item.get('updated_rows', 0)} | "
+                  f"{(item.get('error') or '').replace('|', '\\\\|')} |"
+              )
+          summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          summary_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+
+      - name: Upload scan artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-summary
+          path: |
+            artifacts/scan-summary.json
+            artifacts/policy-summary.json
+            artifacts/status-dashboard.html
+            artifacts/source-fallback.json
+            artifacts/site/index.html
+          if-no-files-found: warn
+
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: artifacts/site
+
+  deploy-pages:
+    if: always()
+    needs: scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Publish Pages URL
+        run: |
+          {
+            echo "## Dashboard URL"
+            echo
+            echo "- page: ${{ steps.deployment.outputs.page_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"
