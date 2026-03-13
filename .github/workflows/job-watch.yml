@@ -24,45 +24,6 @@ jobs:
       - name: Install package
         run: python -m pip install -e ".[dev]"
 
-      - name: Validate official source policy
-        run: |
-          mkdir -p artifacts
-          job-watch policy-check --format json --output artifacts/policy-summary.json || true
-
-      - name: Publish policy summary
-        if: always()
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          summary_path = Path("artifacts/policy-summary.json")
-          if not summary_path.exists():
-              raise SystemExit(0)
-
-          violations = json.loads(summary_path.read_text(encoding="utf-8"))
-          lines = [
-              "## Source Policy Check",
-              "",
-              f"- violations: {len(violations)}",
-          ]
-          if violations:
-              lines.extend(
-                  [
-                      "",
-                      "| company | error |",
-                      "| --- | --- |",
-                  ]
-              )
-              for item in violations:
-                  escaped_error = (item.get("error") or "").replace("|", "\\|")
-                  lines.append(f"| {item.get('company_slug', '')} | {escaped_error} |")
-          summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
-          with summary_file.open("a", encoding="utf-8") as handle:
-              handle.write("\n".join(lines) + "\n")
-          PY
-
       - name: Detect browser-backed sources
         id: browser
         run: |
@@ -93,20 +54,100 @@ jobs:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
         run: |
           mkdir -p artifacts
-          job-watch scan --format json --output artifacts/scan-summary.json
+          job-watch scan
+
+      - name: Capture source health snapshot
+        if: always()
+        run: |
+          mkdir -p artifacts
+          job-watch sources-check --format json --output artifacts/source-health.json || true
 
       - name: Build status dashboard
         if: always()
         run: |
-          if [ -f artifacts/scan-summary.json ]; then
-            python -m job_watch.cli status-dashboard --scan-report artifacts/scan-summary.json --output artifacts/status-dashboard.html
-          elif [ -f artifacts/policy-summary.json ]; then
-            python -m job_watch.cli status-dashboard --scan-report artifacts/policy-summary.json --output artifacts/status-dashboard.html
-          else
-            python -m job_watch.cli sources-check --format json --output artifacts/source-fallback.json || true
-            if [ -f artifacts/source-fallback.json ]; then
-              python -m job_watch.cli status-dashboard --scan-report artifacts/source-fallback.json --output artifacts/status-dashboard.html
-            fi
+          if [ -f artifacts/source-health.json ]; then
+            python - <<'PY'
+            import json
+            from datetime import datetime, UTC
+            from html import escape
+            from pathlib import Path
+
+            payload = json.loads(Path("artifacts/source-health.json").read_text(encoding="utf-8"))
+            rows = []
+            ok_count = 0
+            err_count = 0
+            for item in payload:
+                ok = bool(item.get("ok", False))
+                if ok:
+                    ok_count += 1
+                else:
+                    err_count += 1
+                rows.append(
+                    {
+                        "company": str(item.get("company_slug", "")),
+                        "source": str(item.get("ats_kind", "")),
+                        "jobs": str(item.get("jobs_found", 0)),
+                        "ok": ok,
+                        "error": str(item.get("error") or ""),
+                    }
+                )
+            rows.sort(key=lambda row: row["company"])
+            rendered_rows = []
+            for row in rows:
+                status_class = "status-ok" if row["ok"] else "status-error"
+                status_label = "green" if row["ok"] else "red"
+                rendered_rows.append(
+                    "<tr>"
+                    f"<td>{escape(row['company'])}</td>"
+                    f"<td>{escape(row['source'])}</td>"
+                    f"<td>{escape(row['jobs'])}</td>"
+                    f"<td><span class='status {status_class}'>{status_label}</span></td>"
+                    f"<td>{escape(row['error'])}</td>"
+                    "</tr>"
+                )
+
+            generated = datetime.now(tz=UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+            html = f"""<!doctype html>
+            <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <title>Job Watch Source Status</title>
+              <style>
+                body {{ margin: 0; padding: 24px; background: #f8fafc; color: #0f172a; font-family: -apple-system, Segoe UI, Arial, sans-serif; }}
+                .card {{ max-width: 1200px; margin: 0 auto; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; }}
+                h1 {{ margin: 0 0 6px; font-size: 24px; }}
+                .meta {{ margin: 0 0 16px; color: #475569; font-size: 14px; }}
+                .summary {{ display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; font-size: 14px; }}
+                .pill {{ border-radius: 9999px; padding: 6px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; }}
+                table {{ width: 100%; border-collapse: collapse; font-size: 14px; }}
+                th, td {{ text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }}
+                th {{ color: #475569; font-weight: 600; background: #f8fafc; }}
+                .status {{ display: inline-block; border-radius: 9999px; padding: 3px 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; }}
+                .status-ok {{ background: #dcfce7; color: #166534; }}
+                .status-error {{ background: #fee2e2; color: #991b1b; }}
+              </style>
+            </head>
+            <body>
+              <div class="card">
+                <h1>Job Watch Source Status</h1>
+                <p class="meta">Generated: {generated}</p>
+                <div class="summary">
+                  <span class="pill">Total Companies: {len(rows)}</span>
+                  <span class="pill">Green: {ok_count}</span>
+                  <span class="pill">Red: {err_count}</span>
+                </div>
+                <table>
+                  <thead><tr><th>Company</th><th>Source</th><th>Jobs</th><th>Status</th><th>Error</th></tr></thead>
+                  <tbody>{''.join(rendered_rows)}</tbody>
+                </table>
+              </div>
+            </body>
+            </html>
+            """
+            Path("artifacts/status-dashboard.html").write_text(html, encoding="utf-8")
+            print("Wrote status dashboard to artifacts/status-dashboard.html")
+            PY
           fi
 
       - name: Prepare Pages site
@@ -133,33 +174,28 @@ jobs:
           import os
           from pathlib import Path
 
-          summary_path = Path("artifacts/scan-summary.json")
-          if not summary_path.exists():
-              print("No scan summary generated.")
+          health_path = Path("artifacts/source-health.json")
+          if not health_path.exists():
+              print("No source health report generated.")
               raise SystemExit(0)
 
-          payload = json.loads(summary_path.read_text(encoding="utf-8"))
-          failures = [item for item in payload.get("company_results", []) if item.get("error")]
+          payload = json.loads(health_path.read_text(encoding="utf-8"))
+          failures = [item for item in payload if not item.get("ok", False)]
           lines = [
-              "## Job Watch Scan",
+              "## Job Watch Source Health",
               "",
-              f"- scanned companies: {payload.get('scanned_companies', 0)}",
-              f"- fetched jobs: {payload.get('fetched_jobs', 0)}",
-              f"- matched jobs: {payload.get('matched_jobs', 0)}",
-              f"- inserted rows: {payload.get('new_rows', 0)}",
-              f"- updated rows: {payload.get('updated_rows', 0)}",
+              f"- checked companies: {len(payload)}",
               f"- failures: {len(failures)}",
               "",
-              "| company | source | fetched | matched | inserted | updated | error |",
-              "| --- | --- | ---: | ---: | ---: | ---: | --- |",
+              "| company | source | jobs | status | error |",
+              "| --- | --- | ---: | --- | --- |",
           ]
-          for item in payload.get("company_results", []):
+          for item in payload:
               escaped_error = (item.get("error") or "").replace("|", "\\|")
+              status = "green" if item.get("ok", False) else "red"
               lines.append(
                   f"| {item.get('company_slug', '')} | {item.get('ats_kind', '')} | "
-                  f"{item.get('fetched_jobs', 0)} | {item.get('matched_jobs', 0)} | "
-                  f"{item.get('inserted_rows', 0)} | {item.get('updated_rows', 0)} | "
-                  f"{escaped_error} |"
+                  f"{item.get('jobs_found', 0)} | {status} | {escaped_error} |"
               )
           summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
           summary_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -171,10 +207,8 @@ jobs:
         with:
           name: scan-summary
           path: |
-            artifacts/scan-summary.json
-            artifacts/policy-summary.json
+            artifacts/source-health.json
             artifacts/status-dashboard.html
-            artifacts/source-fallback.json
             artifacts/site/index.html
           if-no-files-found: warn
 
