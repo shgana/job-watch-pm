@@ -20,7 +20,69 @@ jobs:
       - name: Install package
         run: python -m pip install -e ".[dev]"
 
+      - name: Validate official source policy
+        run: |
+          mkdir -p artifacts
+          job-watch policy-check --format json --output artifacts/policy-summary.json
+
+      - name: Publish policy summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          summary_path = Path("artifacts/policy-summary.json")
+          if not summary_path.exists():
+              raise SystemExit(0)
+          violations = json.loads(summary_path.read_text(encoding="utf-8"))
+          lines = [
+              "## Source Health Policy Check",
+              "",
+              f"- violations: {len(violations)}",
+          ]
+          if violations:
+              lines.extend(["", "| company | error |", "| --- | --- |"])
+              for item in violations:
+                  lines.append(
+                      f"| {item.get('company_slug', '')} | {(item.get('error', '')).replace('|', '\\\\|')} |"
+                  )
+          summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          with summary_file.open("a", encoding="utf-8") as handle:
+              handle.write("\n".join(lines) + "\n")
+          PY
+
+      - name: Detect browser-backed sources
+        id: browser
+        run: |
+          python - <<'PY'
+          import os
+          import tomllib
+          from pathlib import Path
+
+          data = tomllib.loads(Path("config/companies.toml").read_text(encoding="utf-8"))
+          needs_browser = any(
+              company.get("enabled", True) and company.get("requires_browser", False)
+              for company in data.get("company", [])
+          )
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as handle:
+              handle.write(f"needs_browser={'true' if needs_browser else 'false'}\n")
+          PY
+
+      - name: Install Playwright browser dependencies
+        if: steps.browser.outputs.needs_browser == 'true'
+        run: python -m playwright install --with-deps chromium
+
       - name: Run live source validation
         env:
           JOB_WATCH_RUN_LIVE_TESTS: "1"
         run: python -m pytest -q tests/test_live_sources.py
+
+      - name: Upload policy artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-health-policy-summary
+          path: artifacts/policy-summary.json
+          if-no-files-found: warn

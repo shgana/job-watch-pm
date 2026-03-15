@@ -1,14 +1,17 @@
 # Job Watch
 
-`job-watch` scans public ATS job boards for business analyst and project manager roles at curated tech, SaaS, and fintech companies, then syncs matches into a Google Sheet for review and application tracking.
+`job-watch` scans official company career sources for early-career business analyst, product/program/project manager roles and syncs matches into a Google Sheet for review and application tracking.
 
 ## Features
 
 - Public ATS connectors for Greenhouse, Lever, Ashby, SmartRecruiters, and Workday-style JSON feeds
-- Strict title and metro matching for BA/PM roles in Seattle, SF Bay Area, NYC, Boston, and Northern Virginia
+- High-precision new-grad matching from title + description signals (internships excluded, rotational programs included)
+- US + Remote location matching
 - Google Sheets sync that preserves manual status, notes, and priority columns
 - Cron-ready CLI plus a GitHub Actions workflow for twice-daily hosted runs
-- A validated catalog of 176 enabled companies backed by live source tests
+- Official-source policy checks for all configured companies
+- A validated catalog of 240+ enabled companies backed by source checks
+- Simple status dashboard output with green/red company health indicators
 
 ## Quick Start
 
@@ -42,6 +45,9 @@ Validate configured sources without writing to the sheet:
 ```bash
 job-watch sources-check
 job-watch sources-check --format json --output exports/source-health.json
+job-watch policy-check
+job-watch cleanup-non-new-grad --output exports/cleanup-report.json
+job-watch status-dashboard --output exports/status-dashboard.html
 ```
 
 Run live source validation for every enabled company:
@@ -56,6 +62,7 @@ The repo includes:
 
 - `.github/workflows/job-watch.yml` for the twice-daily scan and default unit test suite
 - `.github/workflows/source-health.yml` for daily live validation of every enabled company source
+- Scheduled runs upload `artifacts/status-dashboard.html` as a downloadable health dashboard artifact
 
 Required GitHub Actions secrets:
 
@@ -66,8 +73,9 @@ Required GitHub Actions secrets:
 
 - [`config/settings.toml`](/Users/shyam/Documents/job-watch-pm/config/settings.toml)
 - [`config/companies.toml`](/Users/shyam/Documents/job-watch-pm/config/companies.toml)
+- [`config/expansion_candidates.toml`](/Users/shyam/Documents/job-watch-pm/config/expansion_candidates.toml) (curated +50 expansion manifest)
 
-The current catalog was revalidated live on March 12, 2026. The enabled sources are direct company ATS boards and APIs rather than job aggregators.
+The current enabled catalog was revalidated on March 13, 2026. Enabled sources are official company career pages or official ATS redirects, not aggregators.
 
 Override them with:
 

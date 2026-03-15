@@ -1,5 +1,6 @@
 # Validated catalog for tech, SaaS, fintech, and tech-adjacent companies.
-# Each enabled entry returned a live, parseable ATS payload with at least one job on 2026-03-12.
+# Enabled entries use official company career surfaces or ATS redirects from official surfaces.
+# The current 240 enabled entries were source-checked on 2026-03-13.
 # Run `JOB_WATCH_RUN_LIVE_TESTS=1 python -m pytest tests/test_live_sources.py -q` to revalidate the full catalog.
 
 [[company]]
@@ -73,6 +74,8 @@ ats_kind = "greenhouse"
 board_token = "airbnb"
 career_url = "https://boards.greenhouse.io/airbnb"
 enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://careers.airbnb.com/"
 
 [[company]]
 slug = "airtable"
@@ -1117,6 +1120,8 @@ ats_kind = "ashby"
 board_token = "openai"
 career_url = "https://jobs.ashbyhq.com/openai"
 enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://openai.com/careers/"
 
 [[company]]
 slug = "opendoor"
@@ -1585,3 +1590,772 @@ ats_kind = "greenhouse"
 board_token = "zocdoc"
 career_url = "https://boards.greenhouse.io/zocdoc"
 enabled = true
+
+[[company]]
+slug = "adobe"
+name = "Adobe"
+category = "tech"
+ats_kind = "adobe_jobs"
+career_url = "https://careers.adobe.com/us/en/"
+listing_url = "https://careers.adobe.com/us/en/search-results?keywords=project%20manager"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://careers.adobe.com/us/en/"
+
+[[company]]
+slug = "amazon"
+name = "Amazon"
+category = "tech"
+ats_kind = "amazon_jobs"
+career_url = "https://amazon.jobs/en/"
+listing_url = "https://amazon.jobs/en/search?base_query=project%20manager"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://amazon.jobs/en/"
+
+[company.request_options]
+query = "project manager"
+max_pages = 6
+page_size = 10
+
+[[company]]
+slug = "character"
+name = "Character AI"
+category = "ai"
+ats_kind = "ashby"
+board_token = "character"
+career_url = "https://jobs.ashbyhq.com/character"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/character"
+
+[[company]]
+slug = "checkly"
+name = "Checkly"
+category = "devtools"
+ats_kind = "ashby"
+board_token = "checkly"
+career_url = "https://jobs.ashbyhq.com/checkly"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/checkly"
+
+[[company]]
+slug = "hightouch"
+name = "Hightouch"
+category = "saas"
+ats_kind = "ashby"
+board_token = "hightouch"
+career_url = "https://jobs.ashbyhq.com/hightouch"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/hightouch"
+
+[[company]]
+slug = "modal"
+name = "Modal"
+category = "ai"
+ats_kind = "ashby"
+board_token = "modal"
+career_url = "https://jobs.ashbyhq.com/modal"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/modal"
+
+[[company]]
+slug = "nabla"
+name = "Nabla"
+category = "ai"
+ats_kind = "ashby"
+board_token = "nabla"
+career_url = "https://jobs.ashbyhq.com/nabla"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/nabla"
+
+[[company]]
+slug = "poolside"
+name = "Poolside"
+category = "ai"
+ats_kind = "ashby"
+board_token = "poolside"
+career_url = "https://jobs.ashbyhq.com/poolside"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/poolside"
+
+[[company]]
+slug = "runway"
+name = "Runway"
+category = "ai"
+ats_kind = "ashby"
+board_token = "runway"
+career_url = "https://jobs.ashbyhq.com/runway"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/runway"
+
+[[company]]
+slug = "synthesia"
+name = "Synthesia"
+category = "ai"
+ats_kind = "ashby"
+board_token = "synthesia"
+career_url = "https://jobs.ashbyhq.com/synthesia"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/synthesia"
+
+[[company]]
+slug = "twelve-labs"
+name = "Twelve Labs"
+category = "ai"
+ats_kind = "ashby"
+board_token = "twelve-labs"
+career_url = "https://jobs.ashbyhq.com/twelve-labs"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/twelve-labs"
+
+[[company]]
+slug = "datologyai"
+name = "DatologyAI"
+category = "ai"
+ats_kind = "ashby"
+board_token = "datologyai"
+career_url = "https://jobs.ashbyhq.com/datologyai"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/datologyai"
+
+[[company]]
+slug = "mercor"
+name = "Mercor"
+category = "ai"
+ats_kind = "ashby"
+board_token = "mercor"
+career_url = "https://jobs.ashbyhq.com/mercor"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/mercor"
+
+[[company]]
+slug = "perplexity"
+name = "Perplexity"
+category = "ai"
+ats_kind = "ashby"
+board_token = "perplexity"
+career_url = "https://jobs.ashbyhq.com/perplexity"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/perplexity"
+
+[[company]]
+slug = "relay"
+name = "Relay"
+category = "saas"
+ats_kind = "ashby"
+board_token = "relay"
+career_url = "https://jobs.ashbyhq.com/relay"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/relay"
+
+[[company]]
+slug = "replo"
+name = "Replo"
+category = "saas"
+ats_kind = "ashby"
+board_token = "replo"
+career_url = "https://jobs.ashbyhq.com/replo"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/replo"
+
+[[company]]
+slug = "sierra"
+name = "Sierra"
+category = "ai"
+ats_kind = "ashby"
+board_token = "sierra"
+career_url = "https://jobs.ashbyhq.com/sierra"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/sierra"
+
+[[company]]
+slug = "suno"
+name = "Suno"
+category = "ai"
+ats_kind = "ashby"
+board_token = "suno"
+career_url = "https://jobs.ashbyhq.com/suno"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/suno"
+
+[[company]]
+slug = "tavus"
+name = "Tavus"
+category = "ai"
+ats_kind = "ashby"
+board_token = "tavus"
+career_url = "https://jobs.ashbyhq.com/tavus"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/tavus"
+
+[[company]]
+slug = "vapi"
+name = "Vapi"
+category = "ai"
+ats_kind = "ashby"
+board_token = "vapi"
+career_url = "https://jobs.ashbyhq.com/vapi"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/vapi"
+
+[[company]]
+slug = "zip"
+name = "Zip"
+category = "fintech"
+ats_kind = "ashby"
+board_token = "zip"
+career_url = "https://jobs.ashbyhq.com/zip"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/zip"
+
+[[company]]
+slug = "arcade"
+name = "Arcade"
+category = "ai"
+ats_kind = "ashby"
+board_token = "arcade"
+career_url = "https://jobs.ashbyhq.com/arcade"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/arcade"
+
+[[company]]
+slug = "langchain"
+name = "LangChain"
+category = "ai"
+ats_kind = "ashby"
+board_token = "langchain"
+career_url = "https://jobs.ashbyhq.com/langchain"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/langchain"
+
+[[company]]
+slug = "openrouter"
+name = "OpenRouter"
+category = "ai"
+ats_kind = "ashby"
+board_token = "openrouter"
+career_url = "https://jobs.ashbyhq.com/openrouter"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/openrouter"
+
+[[company]]
+slug = "reflectionai"
+name = "Reflection AI"
+category = "ai"
+ats_kind = "ashby"
+board_token = "reflectionai"
+career_url = "https://jobs.ashbyhq.com/reflectionai"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.ashbyhq.com/reflectionai"
+
+[[company]]
+slug = "apiiro"
+name = "Apiiro"
+category = "security"
+ats_kind = "greenhouse"
+board_token = "apiiro"
+career_url = "https://boards.greenhouse.io/apiiro"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/apiiro"
+
+[[company]]
+slug = "chainguard"
+name = "Chainguard"
+category = "security"
+ats_kind = "greenhouse"
+board_token = "chainguard"
+career_url = "https://boards.greenhouse.io/chainguard"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/chainguard"
+
+[[company]]
+slug = "clutch"
+name = "Clutch"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "clutch"
+career_url = "https://boards.greenhouse.io/clutch"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/clutch"
+
+[[company]]
+slug = "dremio"
+name = "Dremio"
+category = "data"
+ats_kind = "greenhouse"
+board_token = "dremio"
+career_url = "https://boards.greenhouse.io/dremio"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/dremio"
+
+[[company]]
+slug = "forgeglobal"
+name = "Forge Global"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "forgeglobal"
+career_url = "https://boards.greenhouse.io/forgeglobal"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/forgeglobal"
+
+[[company]]
+slug = "freenow"
+name = "FREENOW"
+category = "consumer-tech"
+ats_kind = "greenhouse"
+board_token = "freenow"
+career_url = "https://boards.greenhouse.io/freenow"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/freenow"
+
+[[company]]
+slug = "gemini"
+name = "Gemini"
+category = "crypto"
+ats_kind = "greenhouse"
+board_token = "gemini"
+career_url = "https://boards.greenhouse.io/gemini"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/gemini"
+
+[[company]]
+slug = "humaninterest"
+name = "Human Interest"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "humaninterest"
+career_url = "https://boards.greenhouse.io/humaninterest"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/humaninterest"
+
+[[company]]
+slug = "instabase"
+name = "Instabase"
+category = "ai"
+ats_kind = "greenhouse"
+board_token = "instabase"
+career_url = "https://boards.greenhouse.io/instabase"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/instabase"
+
+[[company]]
+slug = "neo4j"
+name = "Neo4j"
+category = "data"
+ats_kind = "greenhouse"
+board_token = "neo4j"
+career_url = "https://boards.greenhouse.io/neo4j"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/neo4j"
+
+[[company]]
+slug = "pendo"
+name = "Pendo"
+category = "saas"
+ats_kind = "greenhouse"
+board_token = "pendo"
+career_url = "https://boards.greenhouse.io/pendo"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/pendo"
+
+[[company]]
+slug = "planetlabs"
+name = "Planet Labs"
+category = "frontier-tech"
+ats_kind = "greenhouse"
+board_token = "planetlabs"
+career_url = "https://boards.greenhouse.io/planetlabs"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/planetlabs"
+
+[[company]]
+slug = "postman"
+name = "Postman"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "postman"
+career_url = "https://boards.greenhouse.io/postman"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/postman"
+
+[[company]]
+slug = "ripple"
+name = "Ripple"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "ripple"
+career_url = "https://boards.greenhouse.io/ripple"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/ripple"
+
+[[company]]
+slug = "turing"
+name = "Turing"
+category = "ai"
+ats_kind = "greenhouse"
+board_token = "turing"
+career_url = "https://boards.greenhouse.io/turing"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/turing"
+
+[[company]]
+slug = "twistbioscience"
+name = "Twist Bioscience"
+category = "healthtech"
+ats_kind = "greenhouse"
+board_token = "twistbioscience"
+career_url = "https://boards.greenhouse.io/twistbioscience"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/twistbioscience"
+
+[[company]]
+slug = "corelight"
+name = "Corelight"
+category = "security"
+ats_kind = "greenhouse"
+board_token = "corelight"
+career_url = "https://boards.greenhouse.io/corelight"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/corelight"
+
+[[company]]
+slug = "sumologic"
+name = "Sumo Logic"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "sumologic"
+career_url = "https://boards.greenhouse.io/sumologic"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/sumologic"
+
+[[company]]
+slug = "tailscale"
+name = "Tailscale"
+category = "security"
+ats_kind = "greenhouse"
+board_token = "tailscale"
+career_url = "https://boards.greenhouse.io/tailscale"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/tailscale"
+
+[[company]]
+slug = "temporal"
+name = "Temporal"
+category = "devtools"
+ats_kind = "greenhouse"
+board_token = "temporal"
+career_url = "https://boards.greenhouse.io/temporal"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/temporal"
+
+[[company]]
+slug = "truveta"
+name = "Truveta"
+category = "healthtech"
+ats_kind = "greenhouse"
+board_token = "truveta"
+career_url = "https://boards.greenhouse.io/truveta"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/truveta"
+
+[[company]]
+slug = "upstart"
+name = "Upstart"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "upstart"
+career_url = "https://boards.greenhouse.io/upstart"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/upstart"
+
+[[company]]
+slug = "calm"
+name = "Calm"
+category = "consumer-tech"
+ats_kind = "greenhouse"
+board_token = "calm"
+career_url = "https://boards.greenhouse.io/calm"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/calm"
+
+[[company]]
+slug = "clearstreet"
+name = "Clear Street"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "clearstreet"
+career_url = "https://boards.greenhouse.io/clearstreet"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/clearstreet"
+
+[[company]]
+slug = "ninjatrader"
+name = "NinjaTrader"
+category = "fintech"
+ats_kind = "greenhouse"
+board_token = "ninjatrader"
+career_url = "https://boards.greenhouse.io/ninjatrader"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/ninjatrader"
+
+[[company]]
+slug = "yugabyte"
+name = "Yugabyte"
+category = "data"
+ats_kind = "greenhouse"
+board_token = "yugabyte"
+career_url = "https://boards.greenhouse.io/yugabyte"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://boards.greenhouse.io/yugabyte"
+
+[[company]]
+slug = "spotify"
+name = "Spotify"
+category = "consumer-tech"
+ats_kind = "lever"
+site = "spotify"
+career_url = "https://jobs.lever.co/spotify"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://jobs.lever.co/spotify"
+
+[[company]]
+slug = "anthropic"
+name = "Anthropic"
+category = "ai"
+ats_kind = "greenhouse"
+board_token = "anthropic"
+career_url = "https://www.anthropic.com/careers"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://www.anthropic.com/careers"
+
+[[company]]
+slug = "apple"
+name = "Apple"
+category = "tech"
+ats_kind = "apple_jobs"
+career_url = "https://jobs.apple.com/en-us/search"
+listing_url = "https://jobs.apple.com/en-us/search?search=project%20manager&sort=relevance&location=united-states-USA"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://jobs.apple.com/en-us/search"
+
+[[company]]
+slug = "bytedance"
+name = "ByteDance"
+category = "tech"
+ats_kind = "bytedance_jobs_browser"
+career_url = "https://jobs.bytedance.com/experienced/position"
+listing_url = "https://jobs.bytedance.com/experienced/position?keywords=project%20manager&location=&project=&type=&job_hot_flag=&current=1&limit=10"
+enabled = true
+requires_browser = true
+source_policy = "company_site"
+official_career_site_url = "https://jobs.bytedance.com/experienced/position"
+
+[company.request_options]
+max_pages = 1
+wait_ms = 4500
+
+[[company]]
+slug = "google"
+name = "Google"
+category = "tech"
+ats_kind = "google_jobs_browser"
+career_url = "https://www.google.com/about/careers/applications/jobs/results/"
+listing_url = "https://www.google.com/about/careers/applications/jobs/results/?q=project%20manager"
+enabled = true
+requires_browser = true
+source_policy = "company_site"
+official_career_site_url = "https://www.google.com/about/careers/applications/jobs/results/"
+
+[company.request_options]
+max_pages = 2
+wait_ms = 4000
+
+[[company]]
+slug = "linkedin"
+name = "LinkedIn"
+category = "tech"
+ats_kind = "linkedin_jobs"
+career_url = "https://careers.linkedin.com/"
+listing_url = "https://www.linkedin.com/jobs/search/?keywords=project%20manager&f_C=1337,9202023,2561065,2587638,290903,39939"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://careers.linkedin.com/"
+
+[[company]]
+slug = "meta"
+name = "Meta"
+category = "tech"
+ats_kind = "meta_jobs_browser"
+career_url = "https://www.metacareers.com/jobsearch"
+listing_url = "https://www.metacareers.com/jobsearch/?q=project%20manager"
+enabled = true
+requires_browser = true
+source_policy = "company_site"
+official_career_site_url = "https://www.metacareers.com/jobsearch"
+
+[company.request_options]
+max_pages = 1
+wait_ms = 4500
+
+[[company]]
+slug = "microsoft"
+name = "Microsoft"
+category = "tech"
+ats_kind = "microsoft_jobs"
+career_url = "https://apply.careers.microsoft.com/careers"
+listing_url = "https://apply.careers.microsoft.com/careers/v2/search?keywords=project%20manager&lc=en_us&pg=1&pgSz=20&o=Relevance&flt=true"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://careers.microsoft.com/v2/global/en/home.html"
+
+[company.request_options]
+query = "project manager"
+max_pages = 6
+page_size = 10
+domain = "microsoft.com"
+
+[[company]]
+slug = "netflix"
+name = "Netflix"
+category = "tech"
+ats_kind = "netflix_jobs"
+career_url = "https://jobs.netflix.com/"
+listing_url = "https://explore.jobs.netflix.net/careers?query=project%20manager"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://jobs.netflix.com/"
+
+[company.request_options]
+query = "project manager"
+max_jobs = 20
+
+[[company]]
+slug = "nvidia"
+name = "NVIDIA"
+category = "frontier-tech"
+ats_kind = "workday"
+career_url = "https://www.nvidia.com/en-us/about-nvidia/careers/"
+feed_url = "https://nvidia.wd5.myworkdayjobs.com/wday/cxs/nvidia/NVIDIAExternalCareerSite/jobs"
+enabled = true
+source_policy = "ats_redirect"
+official_career_site_url = "https://www.nvidia.com/en-us/about-nvidia/careers/"
+
+[company.request_options]
+post_body = {}
+
+[[company]]
+slug = "salesforce"
+name = "Salesforce"
+category = "saas"
+ats_kind = "salesforce_jobs"
+career_url = "https://careers.salesforce.com/en/jobs/"
+listing_url = "https://careers.salesforce.com/en/jobs/"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://careers.salesforce.com/en/jobs/"
+
+[company.request_options]
+query = "project manager"
+max_pages = 4
+
+[[company]]
+slug = "tesla"
+name = "Tesla"
+category = "frontier-tech"
+ats_kind = "tesla_jobs_browser"
+career_url = "https://www.tesla.com/careers/"
+listing_url = "https://www.tesla.com/careers/search/?query=project%20manager&site=US"
+enabled = false
+requires_browser = true
+source_policy = "company_site"
+official_career_site_url = "https://www.tesla.com/careers/"
+
+[company.request_options]
+max_pages = 1
+wait_ms = 5000
+best_effort = true
+
+[[company]]
+slug = "tiktok"
+name = "TikTok"
+category = "tech"
+ats_kind = "tiktok_jobs"
+career_url = "https://lifeattiktok.com/"
+listing_url = "https://lifeattiktok.com/search?keyword=project%20manager"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://lifeattiktok.com/"
+
+[company.request_options]
+query = "project manager"
+website_path = "tiktok"
+max_pages = 5
+page_size = 12
+
+[[company]]
+slug = "uber"
+name = "Uber"
+category = "tech"
+ats_kind = "uber_jobs"
+career_url = "https://www.uber.com/us/en/careers/"
+listing_url = "https://www.uber.com/us/en/careers/list/?query=project%20manager"
+enabled = true
+source_policy = "company_site"
+official_career_site_url = "https://www.uber.com/us/en/careers/"
+
+[company.request_options]
+query = "project manager"
+max_pages = 6
+page_size = 10

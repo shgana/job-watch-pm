@@ -51,21 +51,15 @@ northern_virginia = [
 [role_rules]
 include = [
   "business analyst",
+  "product manager",
+  "associate product manager",
+  "program manager",
+  "technical program manager",
   "project manager",
-  "technical project manager",
-  "senior project manager",
-  "senior business analyst",
-  "lead project manager",
-  "lead business analyst",
-  "principal project manager",
-  "principal business analyst",
 ]
 exclude = [
-  "program manager",
-  "product manager",
   "product analyst",
   "project coordinator",
-  "associate project manager",
   "delivery manager",
   "implementation manager",
   "engagement manager",
@@ -80,12 +74,86 @@ exclude = [
   "scrum master",
 ]
 
+[role_families]
+include = [
+  "business analyst",
+  "product manager",
+  "associate product manager",
+  "apm",
+  "program manager",
+  "technical program manager",
+  "project manager",
+]
+
+[new_grad_rules]
+positive_terms = [
+  "new grad",
+  "new graduate",
+  "recent graduate",
+  "entry level",
+  "early career",
+  "associate",
+  "college hire",
+  "campus",
+  "university",
+  "rotational",
+  "rotation program",
+  "graduate program",
+  "apm",
+]
+seniority_negative_terms = [
+  "senior",
+  " sr ",
+  "staff",
+  "principal",
+  "lead",
+  "director",
+  "head of",
+  "vp",
+  "vice president",
+  "manager ii",
+  "manager iii",
+]
+internship_terms = ["intern", "internship", "co-op", "coop", "co op"]
+rotational_terms = ["rotation", "rotational", "graduate program", "associate program"]
+max_experience_years = 2
+high_precision = true
+
+[location_rules]
+mode = "us_or_remote"
+allow_remote_us = true
+us_terms = [
+  "united states",
+  "usa",
+  "u.s.",
+  "u.s.a",
+  "us remote",
+  "remote us",
+]
+non_us_terms = [
+  "canada",
+  "united kingdom",
+  "uk",
+  "india",
+  "germany",
+  "france",
+  "spain",
+  "ireland",
+  "singapore",
+  "japan",
+  "australia",
+  "mexico",
+  "brazil",
+  "netherlands",
+]
+
 [scan]
 freshness_days = 7
 
 [request]
 concurrency = 8
 timeout_seconds = 20
+retry_attempts = 2
 
 [sheet]
 tab_name = "Jobs"

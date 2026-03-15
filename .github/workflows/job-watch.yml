@@ -60,18 +60,21 @@ jobs:
             job-watch scan
           fi
 
-      - name: Capture source health snapshot
+      - name: Build FAANG+ status report
         if: always()
         run: |
           mkdir -p artifacts
-          job-watch sources-check --format json --output artifacts/source-health.json || true
+          if [ -f artifacts/scan-summary.json ]; then
+            job-watch faang-status --scan-report artifacts/scan-summary.json --format json --output artifacts/faang-status.json
+          else
+            job-watch faang-status --format json --output artifacts/faang-status.json
+          fi
 
       - name: Build status dashboard
         if: always()
         run: |
           python scripts/build_status_dashboard.py \
-            --scan-report artifacts/scan-summary.json \
-            --sources-report artifacts/source-health.json \
+            --scan-report artifacts/faang-status.json \
             --output artifacts/status-dashboard.html
 
       - name: Prepare Pages site
@@ -98,28 +101,31 @@ jobs:
           import os
           from pathlib import Path
 
-          health_path = Path("artifacts/source-health.json")
-          if not health_path.exists():
-              print("No source health report generated.")
+          status_path = Path("artifacts/faang-status.json")
+          if not status_path.exists():
+              print("No FAANG+ status report generated.")
               raise SystemExit(0)
 
-          payload = json.loads(health_path.read_text(encoding="utf-8"))
-          failures = [item for item in payload if not item.get("ok", False)]
+          payload = json.loads(status_path.read_text(encoding="utf-8"))
+          rows = payload.get("results", [])
+          failures = [item for item in rows if item.get("status") != "green"]
           lines = [
-              "## Job Watch Source Health",
+              "## Job Watch FAANG+ Source Health",
               "",
-              f"- checked companies: {len(payload)}",
-              f"- failures: {len(failures)}",
+              f"- checked companies: {len(rows)}",
+              f"- green: {payload.get('green', 0)}",
+              f"- red: {payload.get('red', len(failures))}",
               "",
-              "| company | source | jobs | status | error |",
-              "| --- | --- | ---: | --- | --- |",
+              "| company | source | jobs | status | reason | error |",
+              "| --- | --- | ---: | --- | --- | --- |",
           ]
-          for item in payload:
+          for item in rows:
               escaped_error = (item.get("error") or "").replace("|", "\\|")
-              status = "green" if item.get("ok", False) else "red"
+              status = item.get("status", "red")
+              reason = (item.get("reason") or "").replace("|", "\\|")
               lines.append(
                   f"| {item.get('company_slug', '')} | {item.get('ats_kind', '')} | "
-                  f"{item.get('jobs_found', 0)} | {status} | {escaped_error} |"
+                  f"{item.get('jobs_found', 0)} | {status} | {reason} | {escaped_error} |"
               )
           summary_file = Path(os.environ["GITHUB_STEP_SUMMARY"])
           summary_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -132,7 +138,7 @@ jobs:
           name: scan-summary
           path: |
             artifacts/scan-summary.json
-            artifacts/source-health.json
+            artifacts/faang-status.json
             artifacts/status-dashboard.html
             artifacts/site/index.html
           if-no-files-found: warn

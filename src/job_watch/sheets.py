@@ -60,6 +60,17 @@ class GoogleSheetGateway:
         self.worksheet.clear()
         self.worksheet.update(range_name="A1", values=values)
 
+    def ensure_template(self) -> None:
+        """Ensure the worksheet has the expected header row."""
+
+        values = self.worksheet.get_all_values()
+        if not values:
+            self.worksheet.update(range_name="A1:O1", values=[SHEET_COLUMNS])
+            return
+        header = values[0]
+        if header != SHEET_COLUMNS:
+            self.worksheet.update(range_name="A1:O1", values=[SHEET_COLUMNS])
+
 
 def _load_credentials():
     from google.oauth2.service_account import Credentials

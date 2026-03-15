@@ -20,3 +20,23 @@ SHEET_COLUMNS = [
 
 DEFAULT_USER_AGENT = "job-watch/0.1 (+https://github.com/actions)"
 TERMINAL_TRACKER_STATUSES = {"applied", "archived", "rejected"}
+
+FAANG_PLUS_TARGET_SLUGS = (
+    "amazon",
+    "apple",
+    "google",
+    "meta",
+    "netflix",
+    "microsoft",
+    "nvidia",
+    "tesla",
+    "uber",
+    "airbnb",
+    "linkedin",
+    "salesforce",
+    "adobe",
+    "openai",
+    "anthropic",
+    "bytedance",
+    "tiktok",
+)

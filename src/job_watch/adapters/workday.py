@@ -17,7 +17,18 @@ class WorkdayAdapter(SourceAdapter):
     async def fetch(self, client: httpx.AsyncClient, company: CompanyConfig) -> list[JobRecord]:
         if not company.feed_url:
             raise ValueError(f"Workday source {company.slug} requires feed_url")
-        payload = await self.get_json(client, company.feed_url, headers=company.headers)
+        try:
+            payload = await self.get_json(client, company.feed_url, headers=company.headers)
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code not in {400, 405, 422}:
+                raise
+            response = await client.post(
+                company.feed_url,
+                headers={"Content-Type": "application/json", **company.headers},
+                json=company.request_options.get("post_body", {}),
+            )
+            response.raise_for_status()
+            payload = response.json()
         items = payload.get("jobPostings") or payload.get("positions") or payload.get("jobs") or []
         jobs: list[JobRecord] = []
         for item in items:

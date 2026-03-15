@@ -1,119 +1,66 @@
 #!/usr/bin/env python3
-"""Build a static HTML status dashboard from scan reports."""
+"""Build a static HTML status dashboard from JSON reports."""
 
 from __future__ import annotations
 
 import argparse
 import json
-from datetime import UTC, datetime
-from html import escape
 from pathlib import Path
 from typing import Any
+
+from job_watch.constants import FAANG_PLUS_TARGET_SLUGS
+from job_watch.dashboard import render_status_dashboard
 
 
 def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _normalize_rows(payload: Any) -> list[dict[str, str | bool]]:
-    if isinstance(payload, list):
+def _normalize_rows(payload: Any) -> list[dict[str, str | int | bool | None]]:
+    if isinstance(payload, dict) and isinstance(payload.get("results"), list):
+        items = payload["results"]
+    elif isinstance(payload, dict) and isinstance(payload.get("company_results"), list):
+        items = payload["company_results"]
+    elif isinstance(payload, list):
         items = payload
-    elif isinstance(payload, dict):
-        items = []
-        for key in ("companies", "results", "sources", "per_company"):
-            candidate = payload.get(key)
-            if isinstance(candidate, list):
-                items = candidate
-                break
     else:
         items = []
 
-    rows: list[dict[str, str | bool]] = []
+    rows: list[dict[str, str | int | bool | None]] = []
     for item in items:
         if not isinstance(item, dict):
             continue
-        company = str(item.get("company") or item.get("company_slug") or "")
-        if not company:
+        company_slug = str(item.get("company_slug", "") or item.get("company", "") or "")
+        if not company_slug:
             continue
-        source = str(item.get("ats_kind") or item.get("source") or "")
-        jobs = str(
-            item.get(
-                "fetched_jobs",
-                item.get("jobs_found", item.get("matched_jobs", 0)),
-            )
-        )
-        error = str(item.get("error") or "")
-        ok = bool(item.get("ok")) if "ok" in item else not error
+        jobs = int(item.get("jobs_found", item.get("fetched_jobs", item.get("matched_jobs", 0))) or 0)
+        status = str(item.get("status", "") or "").lower()
+        ok = bool(item.get("ok", not bool(item.get("error"))))
+        if not status:
+            status = "green" if ok else "red"
+        reason = str(item.get("reason", "") or ("ok" if status == "green" else "fetch_failed"))
         rows.append(
             {
-                "company": company,
-                "source": source,
-                "jobs": jobs,
-                "ok": ok,
-                "error": error,
+                "company_slug": company_slug,
+                "ats_kind": str(item.get("ats_kind", "") or item.get("source", "") or ""),
+                "jobs_found": jobs,
+                "status": status,
+                "reason": reason,
+                "error": str(item.get("error", "") or ""),
             }
         )
-    rows.sort(key=lambda row: str(row["company"]))
-    return rows
-
-
-def _render(rows: list[dict[str, str | bool]], title: str) -> str:
-    ok_count = sum(1 for row in rows if bool(row["ok"]))
-    err_count = len(rows) - ok_count
-    rendered_rows: list[str] = []
-    for row in rows:
-        status_ok = bool(row["ok"])
-        status_class = "status-ok" if status_ok else "status-error"
-        status_label = "green" if status_ok else "red"
-        rendered_rows.append(
-            "<tr>"
-            f"<td>{escape(str(row['company']))}</td>"
-            f"<td>{escape(str(row['source']))}</td>"
-            f"<td>{escape(str(row['jobs']))}</td>"
-            f"<td><span class='status {status_class}'>{status_label}</span></td>"
-            f"<td>{escape(str(row['error']))}</td>"
-            "</tr>"
-        )
-
-    generated = datetime.now(tz=UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
-    return f"""<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{escape(title)}</title>
-  <style>
-    body {{ margin: 0; padding: 24px; background: #f8fafc; color: #0f172a; font-family: -apple-system, Segoe UI, Arial, sans-serif; }}
-    .card {{ max-width: 1200px; margin: 0 auto; background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; }}
-    h1 {{ margin: 0 0 6px; font-size: 24px; }}
-    .meta {{ margin: 0 0 16px; color: #475569; font-size: 14px; }}
-    .summary {{ display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; font-size: 14px; }}
-    .pill {{ border-radius: 9999px; padding: 6px 10px; border: 1px solid #e2e8f0; background: #f1f5f9; }}
-    table {{ width: 100%; border-collapse: collapse; font-size: 14px; }}
-    th, td {{ text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }}
-    th {{ color: #475569; font-weight: 600; background: #f8fafc; }}
-    .status {{ display: inline-block; border-radius: 9999px; padding: 3px 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; }}
-    .status-ok {{ background: #dcfce7; color: #166534; }}
-    .status-error {{ background: #fee2e2; color: #991b1b; }}
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>{escape(title)}</h1>
-    <p class="meta">Generated: {escape(generated)}</p>
-    <div class="summary">
-      <span class="pill">Total Companies: {len(rows)}</span>
-      <span class="pill">Green: {ok_count}</span>
-      <span class="pill">Red: {err_count}</span>
-    </div>
-    <table>
-      <thead><tr><th>Company</th><th>Source</th><th>Jobs</th><th>Status</th><th>Error</th></tr></thead>
-      <tbody>{''.join(rendered_rows)}</tbody>
-    </table>
-  </div>
-</body>
-</html>
-"""
+    row_map = {str(row["company_slug"]): row for row in rows}
+    for slug in FAANG_PLUS_TARGET_SLUGS:
+        if slug not in row_map:
+            row_map[slug] = {
+                "company_slug": slug,
+                "ats_kind": "",
+                "jobs_found": 0,
+                "status": "red",
+                "reason": "missing_status_row",
+                "error": "status row not found in input payload",
+            }
+    return [row_map[slug] for slug in FAANG_PLUS_TARGET_SLUGS]
 
 
 def main() -> int:
@@ -121,10 +68,10 @@ def main() -> int:
     parser.add_argument("--scan-report", type=Path, required=False)
     parser.add_argument("--sources-report", type=Path, required=False)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--title", default="Job Watch Source Status")
+    parser.add_argument("--title", default="Job Watch FAANG+ Source Status")
     args = parser.parse_args()
 
-    rows: list[dict[str, str | bool]] = []
+    rows: list[dict[str, str | int | bool | None]] = []
     source_label = ""
 
     if args.scan_report and args.scan_report.exists():
@@ -135,8 +82,9 @@ def main() -> int:
         rows = _normalize_rows(_load_json(args.sources_report))
         source_label = f"sources report: {args.sources_report}"
 
+    html = render_status_dashboard(rows, title=args.title)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(_render(rows, args.title), encoding="utf-8")
+    args.output.write_text(html, encoding="utf-8")
     print(f"Wrote dashboard to {args.output}")
     if source_label:
         print(f"Rendered from {source_label}")
